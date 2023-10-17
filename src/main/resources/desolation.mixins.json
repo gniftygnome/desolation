@@ -5,7 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "entity.LivingEntityMixin",
-    "entity.player.PlayerEntityMixin"
+    "entity.player.PlayerEntityMixin",
+    "tree.TrunkPlacerMixin"
   ],
   "client": [
     "client.gui.hud.InGameHudMixin",
