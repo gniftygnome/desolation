@@ -1,5 +1,6 @@
 package raltsmc.desolation.block;
 
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
@@ -32,13 +33,18 @@ public class CinderfruitPlantBlock extends PlantBlock implements Fertilizable {
     }
 
     @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return null;
+    }
+
+    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
 
     @Override
     @Environment(EnvType.CLIENT)
-    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
         return new ItemStack(DesolationItems.CINDERFRUIT);
     }
 

@@ -31,7 +31,7 @@ public class DesolationItemGroups {
     private static final Item FUNCTIONAL_SIGN = Items.CHERRY_HANGING_SIGN;
     private static final Item INGREDIENTS_COAL = Items.CHARCOAL;
     private static final Item NATURAL_DIRT_ITEMS = Items.FARMLAND;
-    private static final Item NATURAL_GRASS = Items.GRASS;
+    private static final Item NATURAL_GRASS = Items.SHORT_GRASS;
     private static final Item NATURAL_HOT_BLOCKS = Items.MAGMA_BLOCK;
     private static final Item NATURAL_LEAVES = Items.MANGROVE_LEAVES;
     private static final Item NATURAL_LOG = Items.MANGROVE_LOG;

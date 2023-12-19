@@ -1,5 +1,6 @@
 package raltsmc.desolation.block;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PlantBlock;
@@ -14,6 +15,11 @@ public class ScorchedTuftBlock extends PlantBlock {
 
     public ScorchedTuftBlock(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    protected MapCodec<? extends PlantBlock> getCodec() {
+        return null;
     }
 
     @Override
