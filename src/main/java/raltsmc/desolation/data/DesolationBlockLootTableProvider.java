@@ -36,10 +36,13 @@ public class DesolationBlockLootTableProvider extends FabricBlockLootTableProvid
 		addDrop(DesolationBlocks.CHARRED_PLANKS);
 		addDrop(DesolationBlocks.CHARRED_PRESSURE_PLATE);
 		addDrop(DesolationBlocks.CHARRED_SAPLING);
+		addDrop(DesolationBlocks.CHARRED_HANGING_SIGN);
+		addDrop(DesolationBlocks.CHARRED_SIGN);
 		addDrop(DesolationBlocks.CHARRED_SLAB, this::slabDrops);
 		addDrop(DesolationBlocks.CHARRED_SOIL);
 		addDrop(DesolationBlocks.CHARRED_STAIRS);
 		addDrop(DesolationBlocks.CHARRED_TRAPDOOR);
+		addDrop(DesolationBlocks.CHARRED_WOOD);
 		addDrop(DesolationBlocks.CINDERFRUIT_PLANT, block -> this.cropDrops(block,
 				DesolationItems.CINDERFRUIT, DesolationItems.CINDERFRUIT_SEEDS,
 				BlockStatePropertyLootCondition.builder(DesolationBlocks.CINDERFRUIT_PLANT)
@@ -47,5 +50,7 @@ public class DesolationBlockLootTableProvider extends FabricBlockLootTableProvid
 		addDrop(DesolationBlocks.COOLED_EMBER_BLOCK);
 		addDrop(DesolationBlocks.EMBER_BLOCK);
 		addPottedPlantDrops(DesolationBlocks.POTTED_CHARRED_SAPLING);
+		addDrop(DesolationBlocks.STRIPPED_CHARRED_LOG);
+		addDrop(DesolationBlocks.STRIPPED_CHARRED_WOOD);
 	}
 }

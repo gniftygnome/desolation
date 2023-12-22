@@ -12,6 +12,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 import raltsmc.desolation.registry.DesolationBlocks;
+import raltsmc.desolation.registry.DesolationBoatTypes;
 import raltsmc.desolation.registry.DesolationItems;
 import raltsmc.desolation.tag.DesolationItemTags;
 
@@ -100,9 +101,9 @@ public class DesolationRecipeProvider extends FabricRecipeProvider {
 
 
 		// wood recipes
-//		offerBoatRecipe(exporter, DesolationBoatTypes.CHARRED_BOAT, DesolationBlocks.CHARRED_PLANKS);
+		offerBoatRecipe(exporter, DesolationBoatTypes.CHARRED_BOAT, DesolationBlocks.CHARRED_PLANKS);
 
-//		offerChestBoatRecipe(exporter, DesolationBoatTypes.CHARRED_CHEST_BOAT, DesolationBoatTypes.CHARRED_BOAT);
+		offerChestBoatRecipe(exporter, DesolationBoatTypes.CHARRED_CHEST_BOAT, DesolationBoatTypes.CHARRED_BOAT);
 
 		offerSingleOutputShapelessRecipe(exporter, DesolationBlocks.CHARRED_BUTTON, DesolationBlocks.CHARRED_PLANKS, "redstone");
 
@@ -118,15 +119,15 @@ public class DesolationRecipeProvider extends FabricRecipeProvider {
 				.criterion("has_planks", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_PLANKS))
 				.offerTo(exporter);
 
-//		offerHangingSignRecipe(exporter, DesolationBlocks.CHARRED_HANGING_SIGN, DesolationBlocks.STRIPPED_CHARRED_LOG);
+		offerHangingSignRecipe(exporter, DesolationBlocks.CHARRED_HANGING_SIGN, DesolationBlocks.STRIPPED_CHARRED_LOG);
 
 		offerPlanksRecipe(exporter, DesolationBlocks.CHARRED_PLANKS, DesolationItemTags.CHARRED_LOGS, 4);
 
 		offerPressurePlateRecipe(exporter, DesolationBlocks.CHARRED_PRESSURE_PLATE, DesolationBlocks.CHARRED_PLANKS);
 
-//		createSignRecipe(DesolationBlocks.CHARRED_SIGN, Ingredient.ofItems(DesolationBlocks.CHARRED_PLANKS))
-//				.criterion("has_planks", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_PLANKS))
-//				.offerTo(exporter);
+		createSignRecipe(DesolationBlocks.CHARRED_SIGN, Ingredient.ofItems(DesolationBlocks.CHARRED_PLANKS))
+				.criterion("has_planks", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_PLANKS))
+				.offerTo(exporter);
 
 		offerSlabRecipe(exporter, RecipeCategory.BUILDING_BLOCKS, DesolationBlocks.CHARRED_SLAB, DesolationBlocks.CHARRED_PLANKS);
 
@@ -138,19 +139,19 @@ public class DesolationRecipeProvider extends FabricRecipeProvider {
 				.criterion("has_planks", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_PLANKS))
 				.offerTo(exporter);
 
-//		new ShapedRecipeJsonBuilder(RecipeCategory.BUILDING_BLOCKS, DesolationBlocks.CHARRED_WOOD, 3)
-//				.pattern("LL")
-//				.pattern("LL")
-//				.input('L', DesolationBlocks.CHARRED_LOG)
-//				.criterion("has_logs", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_LOG))
-//				.offerTo(exporter, Desolation.id("charred_wood"));
+		new ShapedRecipeJsonBuilder(RecipeCategory.BUILDING_BLOCKS, DesolationBlocks.CHARRED_WOOD, 3)
+				.pattern("LL")
+				.pattern("LL")
+				.input('L', DesolationBlocks.CHARRED_LOG)
+				.criterion("has_logs", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_LOG))
+				.offerTo(exporter, Desolation.id("charred_wood"));
 
-//		new ShapedRecipeJsonBuilder(RecipeCategory.BUILDING_BLOCKS, DesolationBlocks.STRIPPED_CHARRED_WOOD, 3)
-//				.pattern("LL")
-//				.pattern("LL")
-//				.input('L', DesolationBlocks.STRIPPED_CHARRED_LOG)
-//				.criterion("has_logs", InventoryChangedCriterion.Conditions.items(DesolationBlocks.STRIPPED_CHARRED_LOG))
-//				.offerTo(exporter, Desolation.id("stripped_charred_wood"));
+		new ShapedRecipeJsonBuilder(RecipeCategory.BUILDING_BLOCKS, DesolationBlocks.STRIPPED_CHARRED_WOOD, 3)
+				.pattern("LL")
+				.pattern("LL")
+				.input('L', DesolationBlocks.STRIPPED_CHARRED_LOG)
+				.criterion("has_logs", InventoryChangedCriterion.Conditions.items(DesolationBlocks.STRIPPED_CHARRED_LOG))
+				.offerTo(exporter, Desolation.id("stripped_charred_wood"));
 	}
 
 	@Override

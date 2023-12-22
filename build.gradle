@@ -51,6 +51,8 @@ dependencies {
 		exclude(group: "com.github.glitchfiend")
 	}
 
+	include(modApi("com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_api_version}"))
+
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	modImplementation "dev.emi:trinkets:${project.trinkets_version}"

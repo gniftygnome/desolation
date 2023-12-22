@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "desolation:block/charred_sign"
-    }
+    "": { "model": "desolation:block/charred_sign" }
   }
 }
