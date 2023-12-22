@@ -6,6 +6,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import raltsmc.desolation.registry.DesolationBlocks;
+import raltsmc.desolation.registry.DesolationBoatTypes;
 import raltsmc.desolation.registry.DesolationItems;
 import raltsmc.desolation.tag.DesolationItemTags;
 
@@ -18,11 +19,11 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 	@Override
 	public void configure(RegistryWrapper.WrapperLookup registries) {
-//		getOrCreateTagBuilder(ItemTags.BOATS)
-//			.add(DesolationBoatTypes.CHARRED_BOAT);
+		getOrCreateTagBuilder(ItemTags.BOATS)
+			.add(DesolationBoatTypes.CHARRED_BOAT);
 
-//		getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
-//			.add(DesolationBoatTypes.CHARRED_CHEST_BOAT);
+		getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
+			.add(DesolationBoatTypes.CHARRED_CHEST_BOAT);
 
 		copy(BlockTags.LEAVES, ItemTags.LEAVES);
 
@@ -47,9 +48,9 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 		copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
 
-//		copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
+		copy(BlockTags.STANDING_SIGNS, ItemTags.SIGNS);
 
-//		copy(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS);
+		copy(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS);
 
 		copy(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS);
 

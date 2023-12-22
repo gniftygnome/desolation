@@ -55,9 +55,9 @@ public class DesolationItemGroups {
 
         // Wood items
         addGroupEntry(DesolationBlocks.CHARRED_LOG, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
-        //addGroupEntry(DesolationBlocks.CHARRED_WOOD, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
-        //addGroupEntry(DesolationBlocks.STRIPPED_CHARRED_LOG, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
-        //addGroupEntry(DesolationBlocks.STRIPPED_CHARRED_WOOD, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
+        addGroupEntry(DesolationBlocks.CHARRED_WOOD, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
+        addGroupEntry(DesolationBlocks.STRIPPED_CHARRED_LOG, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
+        addGroupEntry(DesolationBlocks.STRIPPED_CHARRED_WOOD, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
         addGroupEntry(DesolationBlocks.CHARRED_PLANKS, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
         addGroupEntry(DesolationBlocks.CHARRED_STAIRS, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
         addGroupEntry(DesolationBlocks.CHARRED_SLAB, ItemGroups.BUILDING_BLOCKS, BUILDING_WOOD_ITEMS);
@@ -107,8 +107,8 @@ public class DesolationItemGroups {
         // FUNCTIONAL
 
         // Wood Items
-        //addGroupEntry(DesolationItems.CHARRED_SIGN, ItemGroups.FUNCTIONAL, FUNCTIONAL_SIGN);
-        //addGroupEntry(DesolationItems.CHARRED_HANGING_SIGN, ItemGroups.FUNCTIONAL, FUNCTIONAL_SIGN);
+        addGroupEntry(DesolationItems.CHARRED_SIGN, ItemGroups.FUNCTIONAL, FUNCTIONAL_SIGN);
+        addGroupEntry(DesolationItems.CHARRED_HANGING_SIGN, ItemGroups.FUNCTIONAL, FUNCTIONAL_SIGN);
 
 
         // REDSTONE
@@ -128,8 +128,8 @@ public class DesolationItemGroups {
         addGroupEntry(DesolationItems.AIR_FILTER, ItemGroups.TOOLS, TOOLS_WEARABLE);
 
         // Boats
-        //addGroupEntry(DesolationBoatTypes.CHARRED_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
-        //addGroupEntry(DesolationBoatTypes.CHARRED_CHEST_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
+        addGroupEntry(DesolationBoatTypes.CHARRED_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
+        addGroupEntry(DesolationBoatTypes.CHARRED_CHEST_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
 
         // Discs
         addGroupEntry(DesolationItems.MUSIC_DISC_ASHES, ItemGroups.TOOLS, TOOLS_DISC);
