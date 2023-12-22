@@ -32,8 +32,8 @@ public class DesolationBlockTagProvider extends FabricTagProvider.BlockTagProvid
 			.add(DesolationBlocks.ASH_LAYER_BLOCK)
 			.add(DesolationBlocks.CHARRED_SOIL);
 
-//		getOrCreateTagBuilder(BlockTags.SWORD_MINEABLE)
-//			.add(DesolationBlocks.ASH_BRAMBLE);
+		getOrCreateTagBuilder(BlockTags.SWORD_EFFICIENT)
+			.add(DesolationBlocks.ASH_BRAMBLE);
 
 
 		getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
@@ -54,17 +54,17 @@ public class DesolationBlockTagProvider extends FabricTagProvider.BlockTagProvid
 		getOrCreateTagBuilder(BlockTags.SAPLINGS)
 			.add(DesolationBlocks.CHARRED_SAPLING);
 
-//		getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
-//			.add(DesolationBlocks.CHARRED_HANGING_SIGN);
+		getOrCreateTagBuilder(BlockTags.CEILING_HANGING_SIGNS)
+			.add(DesolationBlocks.CHARRED_HANGING_SIGN);
 
-//		getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
-//			.add(DesolationBlocks.CHARRED_WALL_HANGING_SIGN);
+		getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
+			.add(DesolationBlocks.CHARRED_WALL_HANGING_SIGN);
 
-//		getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
-//			.add(DesolationBlocks.CHARRED_SIGN);
+		getOrCreateTagBuilder(BlockTags.STANDING_SIGNS)
+			.add(DesolationBlocks.CHARRED_SIGN);
 
-//		getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
-//			.add(DesolationBlocks.CHARRED_WALL_SIGN);
+		getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
+			.add(DesolationBlocks.CHARRED_WALL_SIGN);
 
 		getOrCreateTagBuilder(BlockTags.WOODEN_BUTTONS)
 			.add(DesolationBlocks.CHARRED_BUTTON);

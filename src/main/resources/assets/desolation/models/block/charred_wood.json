@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "desolation:block/charred_log",
+    "side": "desolation:block/charred_log"
+  }
+}
