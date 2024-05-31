@@ -13,7 +13,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.ServerWorldAccess;
-import raltsmc.desolation.Desolation;
+import raltsmc.desolation.registry.DesolationLootTables;
 import raltsmc.desolation.registry.DesolationStructures;
 
 public class AshTinkerBaseGenerator extends SimpleStructurePiece {
@@ -43,8 +43,8 @@ public class AshTinkerBaseGenerator extends SimpleStructurePiece {
         if ("chest".equals(metadata)) {
             serverWorldAccess.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
             BlockEntity blockEntity = serverWorldAccess.getBlockEntity(pos.down());
-            if (blockEntity instanceof ChestBlockEntity) {
-                ((ChestBlockEntity) blockEntity).setLootTable(Desolation.id("chests/ash_tinker_base"), random.nextLong());
+            if (blockEntity instanceof ChestBlockEntity chestBlockEntity) {
+                chestBlockEntity.setLootTable(DesolationLootTables.ASH_TINKER_BASE);
             }
         }
     }

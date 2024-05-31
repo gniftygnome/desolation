@@ -1,7 +1,10 @@
 package raltsmc.desolation.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -25,14 +28,10 @@ import net.minecraft.world.LocalDifficulty;
 import net.minecraft.world.World;
 import raltsmc.desolation.entity.ai.goal.AshAttackGoal;
 import raltsmc.desolation.registry.DesolationItems;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class BlackenedEntity extends HostileEntity implements GeoEntity {
@@ -68,10 +67,10 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(MELEE_ATTACKING, false);
-        this.dataTracker.startTracking(ASH_ATTACKING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(MELEE_ATTACKING, false);
+        builder.add(ASH_ATTACKING, false);
     }
 
     @Override
@@ -90,9 +89,6 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
     }
 
     @Override
-    public EntityGroup getGroup() { return EntityGroup.UNDEAD; }
-
-    @Override
     protected void initEquipment(Random random, LocalDifficulty difficulty) {
         super.initEquipment(random, difficulty);
         this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(DesolationItems.ASH_PILE));
@@ -108,7 +104,8 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
                         targetVector.y, targetVector.z);
                 areaEffectCloudEntity.setDuration(30);
                 areaEffectCloudEntity.setParticleType(ParticleTypes.WHITE_ASH);
-                areaEffectCloudEntity.setColor(0xcccccc);
+                // TODO: what should this be?
+                //areaEffectCloudEntity.setColor(0xcccccc);
                 areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 120, 2));
                 areaEffectCloudEntity.setRadius(0.6F);
                 areaEffectCloudEntity.setRadiusOnUse(0.6F);

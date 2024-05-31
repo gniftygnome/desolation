@@ -8,6 +8,7 @@ import net.minecraft.registry.tag.ItemTags;
 import raltsmc.desolation.registry.DesolationBlocks;
 import raltsmc.desolation.registry.DesolationBoatTypes;
 import raltsmc.desolation.registry.DesolationItems;
+import raltsmc.desolation.tag.DesolationBlockTags;
 import raltsmc.desolation.tag.DesolationItemTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -66,11 +67,6 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 		copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
 
-
-		getOrCreateTagBuilder(DesolationItemTags.CHARRED_LOGS)
-			.add(DesolationBlocks.CHARRED_LOG.asItem());
-//			.add(DesolationBlocks.CHARRED_WOOD.asItem())
-//			.add(DesolationBlocks.STRIPPED_CHARRED_LOG.asItem())
-//			.add(DesolationBlocks.STRIPPED_CHARRED_WOOD.asItem());
+		copy(DesolationBlockTags.CHARRED_LOGS, DesolationItemTags.CHARRED_LOGS);
 	}
 }

@@ -9,6 +9,7 @@ import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 import raltsmc.desolation.registry.DesolationBlocks;
@@ -17,10 +18,11 @@ import raltsmc.desolation.registry.DesolationItems;
 import raltsmc.desolation.tag.DesolationItemTags;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class DesolationRecipeProvider extends FabricRecipeProvider {
-	protected DesolationRecipeProvider(FabricDataOutput dataOutput) {
-		super(dataOutput);
+	protected DesolationRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture);
 	}
 
 	@Override

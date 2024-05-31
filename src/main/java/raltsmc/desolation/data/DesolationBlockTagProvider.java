@@ -89,10 +89,10 @@ public class DesolationBlockTagProvider extends FabricTagProvider.BlockTagProvid
 
 
 		getOrCreateTagBuilder(DesolationBlockTags.CHARRED_LOGS)
-			.add(DesolationBlocks.CHARRED_LOG);
-//			.add(DesolationBlocks.CHARRED_WOOD)
-//			.add(DesolationBlocks.STRIPPED_CHARRED_LOG)
-//			.add(DesolationBlocks.STRIPPED_CHARRED_WOOD);
+			.add(DesolationBlocks.CHARRED_LOG)
+			.add(DesolationBlocks.CHARRED_WOOD)
+			.add(DesolationBlocks.STRIPPED_CHARRED_LOG)
+			.add(DesolationBlocks.STRIPPED_CHARRED_WOOD);
 
 		getOrCreateTagBuilder(DesolationBlockTags.SCORCHED_EARTH)
 			.add(DesolationBlocks.ASH_BLOCK)

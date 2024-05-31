@@ -1,7 +1,6 @@
 package raltsmc.desolation.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -22,14 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import raltsmc.desolation.entity.ai.goal.DigAshGoal;
 import raltsmc.desolation.registry.DesolationItems;
+import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.animation.RawAnimation;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class AshScuttlerEntity extends PathAwareEntity implements GeoEntity {
@@ -55,9 +50,9 @@ public class AshScuttlerEntity extends PathAwareEntity implements GeoEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(SEARCHING, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(SEARCHING, false);
     }
 
     @Override
@@ -104,9 +99,6 @@ public class AshScuttlerEntity extends PathAwareEntity implements GeoEntity {
         }
         return super.interactMob(player, hand);
     }
-
-    @Override
-    public EntityGroup getGroup() { return EntityGroup.ARTHROPOD; }
 
     private <E extends GeoAnimatable> PlayState walkPredicate(AnimationState<E> event) {
         if (event.isMoving()) {

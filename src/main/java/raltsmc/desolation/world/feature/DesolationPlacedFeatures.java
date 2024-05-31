@@ -1,6 +1,7 @@
 package raltsmc.desolation.world.feature;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.Direction;
@@ -9,10 +10,8 @@ import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placementmodifier.*;
 import raltsmc.desolation.Desolation;
 import raltsmc.desolation.registry.DesolationBlocks;
+import raltsmc.desolation.registry.DesolationRegistries;
 import raltsmc.desolation.tag.DesolationBlockTags;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DesolationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> TREES_CHARRED_LARGE = createRegistryKey("trees_charred_large");
@@ -28,83 +27,80 @@ public class DesolationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PLANT_CINDERFRUIT = createRegistryKey("plant_cinderfruit");
     public static final RegistryKey<PlacedFeature> GIANT_BOULDER = createRegistryKey("giant_boulder");
 
+    public static void bootstrap(Registerable<PlacedFeature> registerable) {
+        RegistryEntryLookup<ConfiguredFeature<?, ?>> configuredFeatures = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-    public static void populate(FabricDynamicRegistryProvider.Entries entries) {
         final BlockPredicate ON_CHARRED_SOIL = BlockPredicate.matchingBlocks(Direction.DOWN.getVector(), DesolationBlocks.CHARRED_SOIL);
         final BlockPredicate ON_SCORCHED_EARTH = BlockPredicate.matchingBlockTag(Direction.DOWN.getVector(), DesolationBlockTags.SCORCHED_EARTH);
 
-        entries.add(TREES_CHARRED_LARGE, placeTreeFeature(entries, 15, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED));
+        registerTreeFeature(registerable, TREES_CHARRED_LARGE, 15, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED);
 
-        entries.add(TREES_CHARRED_SMALL, placeTreeFeature(entries, 10, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED_SMALL));
+        registerTreeFeature(registerable, TREES_CHARRED_SMALL, 10, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED_SMALL);
 
-        entries.add(TREES_CHARRED_FALLEN_LARGE, placeTreeFeature(entries, 4, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED_FALLEN));
+        registerTreeFeature(registerable, TREES_CHARRED_FALLEN_LARGE, 4, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED_FALLEN);
 
-        entries.add(TREES_CHARRED_FALLEN_SMALL, placeTreeFeature(entries, 3, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED_FALLEN_SMALL));
+        registerTreeFeature(registerable, TREES_CHARRED_FALLEN_SMALL, 3, ON_SCORCHED_EARTH, DesolationConfiguredFeatures.TREE_CHARRED_FALLEN_SMALL);
 
-        entries.add(PATCH_CHARRED_SAPLING, placeFeature(entries, DesolationConfiguredFeatures.PATCH_CHARRED_SAPLING,
+        DesolationRegistries.register(registerable, PATCH_CHARRED_SAPLING, DesolationConfiguredFeatures.PATCH_CHARRED_SAPLING,
                 CountPlacementModifier.of(2),
                 SquarePlacementModifier.of(),
                 PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(ON_CHARRED_SOIL)));
+                BlockFilterPlacementModifier.of(ON_CHARRED_SOIL),
+                BiomePlacementModifier.of());
 
-        entries.add(PATCH_SCORCHED_TUFT, placeFeature(entries, DesolationConfiguredFeatures.PATCH_SCORCHED_TUFT,
+        DesolationRegistries.register(registerable, PATCH_SCORCHED_TUFT, DesolationConfiguredFeatures.PATCH_SCORCHED_TUFT,
                 CountPlacementModifier.of(8),
                 SquarePlacementModifier.of(),
                 PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(ON_CHARRED_SOIL)));
+                BlockFilterPlacementModifier.of(ON_CHARRED_SOIL),
+                BiomePlacementModifier.of());
 
-        entries.add(PATCH_ASH_LAYER, placeFeature(entries, DesolationConfiguredFeatures.PATCH_ASH_LAYER,
+        DesolationRegistries.register(registerable, PATCH_ASH_LAYER, DesolationConfiguredFeatures.PATCH_ASH_LAYER,
                 CountPlacementModifier.of(3),
                 SquarePlacementModifier.of(),
                 PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(ON_SCORCHED_EARTH)));
+                BlockFilterPlacementModifier.of(ON_SCORCHED_EARTH),
+                BiomePlacementModifier.of());
 
-        entries.add(PATCH_EMBER_CHUNK, placeFeature(entries, DesolationConfiguredFeatures.PATCH_EMBER_CHUNK,
+        DesolationRegistries.register(registerable, PATCH_EMBER_CHUNK, DesolationConfiguredFeatures.PATCH_EMBER_CHUNK,
                 CountPlacementModifier.of(4),
                 SquarePlacementModifier.of(),
-                PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP));
+                PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+                BiomePlacementModifier.of());
 
-        entries.add(PATCH_ASH_BRAMBLE, placeFeature(entries, DesolationConfiguredFeatures.PATCH_ASH_BRAMBLE,
+        DesolationRegistries.register(registerable, PATCH_ASH_BRAMBLE, DesolationConfiguredFeatures.PATCH_ASH_BRAMBLE,
                 CountPlacementModifier.of(5),
                 SquarePlacementModifier.of(),
                 PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
                 BlockFilterPlacementModifier.of(BlockPredicate.matchingBlocks(Direction.DOWN.getVector(),
                         DesolationBlocks.CHARRED_SOIL,
                         DesolationBlocks.CHARRED_LOG,
-                        DesolationBlocks.ASH_BRAMBLE))));
+                        DesolationBlocks.ASH_BRAMBLE)),
+                BiomePlacementModifier.of());
 
-        entries.add(PLANT_CINDERFRUIT, placeFeature(entries, DesolationConfiguredFeatures.PLANT_CINDERFRUIT,
+        DesolationRegistries.register(registerable, PLANT_CINDERFRUIT, DesolationConfiguredFeatures.PLANT_CINDERFRUIT,
                 CountPlacementModifier.of(1),
                 SquarePlacementModifier.of(),
-                PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP));
+                PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+                BiomePlacementModifier.of());
 
-        entries.add(GIANT_BOULDER, placeFeature(entries, DesolationConfiguredFeatures.GIANT_BOULDER,
+        DesolationRegistries.register(registerable, GIANT_BOULDER, DesolationConfiguredFeatures.GIANT_BOULDER,
                 CountPlacementModifier.of(1),
                 SquarePlacementModifier.of(),
-                PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP));
+                PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
+                BiomePlacementModifier.of());
     }
 
-
-    public static RegistryKey<PlacedFeature> createRegistryKey(String name) {
+    private static RegistryKey<PlacedFeature> createRegistryKey(String name) {
         return RegistryKey.of(RegistryKeys.PLACED_FEATURE, Desolation.id(name));
     }
 
-    public static PlacedFeature placeTreeFeature(FabricDynamicRegistryProvider.Entries entries, int count, BlockPredicate predicate, RegistryKey<ConfiguredFeature<?, ?>> feature) {
-        return placeFeature(entries, feature,
+    private static void registerTreeFeature(Registerable<PlacedFeature> registerable, RegistryKey<PlacedFeature> key, int count, BlockPredicate predicate, RegistryKey<ConfiguredFeature<?, ?>> feature) {
+        DesolationRegistries.register(registerable, key, feature,
                 PlacedFeatures.createCountExtraModifier(count, 0.1f, 1),
                 SquarePlacementModifier.of(),
                 PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(predicate));
+                BlockFilterPlacementModifier.of(predicate),
+                BiomePlacementModifier.of());
     }
-
-    private static PlacedFeature placeFeature(FabricDynamicRegistryProvider.Entries entries, RegistryKey<ConfiguredFeature<?, ?>> feature, PlacementModifier... placementModifiers) {
-        List<PlacementModifier> list = new ArrayList<>(List.of(placementModifiers));
-        list.add(BiomePlacementModifier.of());
-        return placeFeature(entries, feature, list);
-    }
-    private static PlacedFeature placeFeature(FabricDynamicRegistryProvider.Entries entries, RegistryKey<ConfiguredFeature<?, ?>> feature, List<PlacementModifier> list) {
-        return new PlacedFeature(entries.ref(feature), list);
-    }
-
-    public static void init() { }
 }

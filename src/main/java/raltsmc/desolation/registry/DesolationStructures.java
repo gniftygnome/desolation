@@ -1,6 +1,6 @@
 package raltsmc.desolation.registry;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.structure.StructurePieceType;
@@ -15,7 +15,7 @@ public class DesolationStructures {
 
 	public static final StructurePieceType ASH_TINKER_BASE_PIECE = registerStructurePiece("ash_tinker_base", AshTinkerBaseGenerator::new);
 
-	private static <S extends Structure> StructureType<S> registerStructureType(String name, Codec<S> codec) {
+	private static <S extends Structure> StructureType<S> registerStructureType(String name, MapCodec<S> codec) {
 		return Registry.register(Registries.STRUCTURE_TYPE, Desolation.id(name), () -> codec);
 	}
 

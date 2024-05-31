@@ -2,7 +2,7 @@ package raltsmc.desolation.world.gen.trunk;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
@@ -34,7 +34,7 @@ public class BasedTrunkPlacer extends StraightTrunkPlacer {
         super(baseHeight, firstRandomHeight, secondRandomHeight);
     }
 
-    public static final Codec<BasedTrunkPlacer> CODEC = RecordCodecBuilder.create((instance) -> fillTrunkPlacerFields(instance).apply(instance, BasedTrunkPlacer::new));
+    public static final MapCodec<BasedTrunkPlacer> CODEC = RecordCodecBuilder.mapCodec((instance) -> fillTrunkPlacerFields(instance).apply(instance, BasedTrunkPlacer::new));
 
     @Override
     protected TrunkPlacerType<?> getType() {

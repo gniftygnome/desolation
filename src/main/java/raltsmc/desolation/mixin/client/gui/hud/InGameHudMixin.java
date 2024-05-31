@@ -31,27 +31,23 @@ public abstract class InGameHudMixin {
     @Shadow
     @Final
     private MinecraftClient client;
-    @Shadow
-    private int scaledWidth;
-    @Shadow
-    private int scaledHeight;
 
     @Shadow
     protected abstract void renderOverlay(DrawContext context, Identifier texture, float opacity);
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/network/ClientPlayerEntity.getFrozenTicks()I", ordinal = 0))
+    @Inject(method = "renderMiscOverlays", at = @At(value = "INVOKE", target = "net/minecraft/client/network/ClientPlayerEntity.getFrozenTicks()I", ordinal = 0))
     private void desolation$renderGoggles(DrawContext context, float tickDelta, CallbackInfo ci) {
         Optional<TrinketComponent> component = TrinketsApi.getTrinketComponent(this.client.player);
         if (this.client.options.getPerspective().isFirstPerson()
                 && Desolation.CONFIG.showGogglesOverlay
                 && component.isPresent()
                 && component.get().isEquipped(DesolationItems.GOGGLES)) {
-            this.desolation$renderGogglesTranslucency();
+            this.desolation$renderGogglesTranslucency(context);
             this.renderOverlay(context, GOGGLES_OVERLAY, 1.0F);
         }
     }
 
-    private void desolation$renderGogglesTranslucency() {
+    private void desolation$renderGogglesTranslucency(DrawContext context) {
         RenderSystem.enableBlend();
         RenderSystem.enableDepthTest();
         RenderSystem.depthMask(false);
@@ -61,9 +57,9 @@ public abstract class InGameHudMixin {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
         bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(0.0D, this.scaledHeight, -90.0D).texture(0.0F, 1.0F).next();
-        bufferBuilder.vertex(this.scaledWidth, this.scaledHeight, -90.0D).texture(1.0F, 1.0F).next();
-        bufferBuilder.vertex(this.scaledWidth, 0.0D, -90.0D).texture(1.0F, 0.0F).next();
+        bufferBuilder.vertex(0.0D, context.getScaledWindowHeight(), -90.0D).texture(0.0F, 1.0F).next();
+        bufferBuilder.vertex(context.getScaledWindowWidth(), context.getScaledWindowHeight(), -90.0D).texture(1.0F, 1.0F).next();
+        bufferBuilder.vertex(context.getScaledWindowWidth(), 0.0D, -90.0D).texture(1.0F, 0.0F).next();
         bufferBuilder.vertex(0.0D, 0.0D, -90.0D).texture(0.0F, 0.0F).next();
         tessellator.draw();
         RenderSystem.depthMask(true);

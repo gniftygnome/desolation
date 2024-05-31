@@ -1,6 +1,6 @@
 package raltsmc.desolation.world.gen.foliage;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.IntProvider;
@@ -12,7 +12,7 @@ import net.minecraft.world.gen.foliage.FoliagePlacerType;
 import raltsmc.desolation.registry.DesolationFoliagePlacerTypes;
 
 public class CharredFoliagePlacer extends FoliagePlacer {
-    public static final Codec<CharredFoliagePlacer> CODEC = RecordCodecBuilder.create((instance) ->
+    public static final MapCodec<CharredFoliagePlacer> CODEC = RecordCodecBuilder.mapCodec((instance) ->
             fillFoliagePlacerFields(instance)
                     .and(IntProvider.createValidatingCodec(1, 512).fieldOf("foliage_height").forGetter(CharredFoliagePlacer::getFoliageHeight))
                     .apply(instance, CharredFoliagePlacer::new)

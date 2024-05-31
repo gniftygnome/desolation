@@ -12,6 +12,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
@@ -82,7 +83,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private int desolation$igniteTarget(LivingEntity entity, Operation<Integer> operation) {
         int level = operation.call(entity);
 
-        if (level < 1 && entity.hasStatusEffect(DesolationStatusEffects.CINDER_SOUL)) {
+        if (level < 1 && entity.hasStatusEffect(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL))) {
             level = 1;
         }
 
@@ -100,7 +101,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     ))
     @SuppressWarnings("unused")
     private void desolation$burnTarget(Entity instance, int duration, Operation<Integer> operation) {
-        if (duration < 6 && this.hasStatusEffect(DesolationStatusEffects.CINDER_SOUL)) {
+        if (duration < 6 && this.hasStatusEffect(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL))) {
             duration = 6;
         }
 

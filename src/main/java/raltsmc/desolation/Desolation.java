@@ -11,7 +11,6 @@ import raltsmc.desolation.config.DesolationConfig;
 import raltsmc.desolation.init.server.DesolationServerNetworking;
 import raltsmc.desolation.registry.DesolationRegistries;
 import raltsmc.desolation.world.gen.world.DesolationBiolithGeneration;
-import software.bernie.geckolib.GeckoLib;
 
 public class Desolation implements ModInitializer {
 
@@ -23,13 +22,12 @@ public class Desolation implements ModInitializer {
 	public void onInitialize() {
 		DesolationRegistries.init();
 		DesolationBiolithGeneration.init();
-		GeckoLib.initialize();
 		DesolationServerNetworking.init();
 
 		LOGGER.info("DesolationX initialized!");
 	}
 
 	public static Identifier id(String path) {
-		return new Identifier(MOD_ID, path);
+		return Identifier.of(MOD_ID, path);
 	}
 }

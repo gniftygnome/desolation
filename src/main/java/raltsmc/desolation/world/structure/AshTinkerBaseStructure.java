@@ -1,6 +1,6 @@
 package raltsmc.desolation.world.structure;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.structure.StructurePiecesCollector;
 import net.minecraft.structure.StructureTemplateManager;
 import net.minecraft.util.BlockRotation;
@@ -15,7 +15,7 @@ import raltsmc.desolation.registry.DesolationStructures;
 import java.util.Optional;
 
 public class AshTinkerBaseStructure extends Structure {
-    public static final Codec<AshTinkerBaseStructure> CODEC = AshTinkerBaseStructure.createCodec(AshTinkerBaseStructure::new);
+    public static final MapCodec<AshTinkerBaseStructure> CODEC = AshTinkerBaseStructure.createCodec(AshTinkerBaseStructure::new);
     private static final Identifier TINKER_BASE_MAIN = Desolation.id("ash_tinker_base/ash_tinker_base");
 
     public AshTinkerBaseStructure(Structure.Config config) {

@@ -2,12 +2,11 @@ package raltsmc.desolation.mixin.client.network;
 
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityPose;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.Registries;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +14,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import raltsmc.desolation.init.server.DesolationServerNetworking;
+import raltsmc.desolation.init.server.CinderSoulC2SPacket;
 import raltsmc.desolation.registry.DesolationStatusEffects;
 import raltsmc.desolation.init.client.DesolationClient;
 
@@ -40,23 +39,21 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void desolation$tickClientPlayer(CallbackInfo info) {
-        if (this.hasStatusEffect(DesolationStatusEffects.CINDER_SOUL)) {
+        if (this.hasStatusEffect(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL))) {
             if (cinderDashCooldown < CINDER_DASH_COOLDOWN_MAX) {
                 ++cinderDashCooldown;
                 if (cinderDashCooldown == CINDER_DASH_COOLDOWN_MAX) {
 
-                    PacketByteBuf buf = PacketByteBufs.create();
-                    if (ClientPlayNetworking.canSend(DesolationServerNetworking.PACKET_CINDER_SOUL_READY)) {
-                        ClientPlayNetworking.send(DesolationServerNetworking.PACKET_CINDER_SOUL_READY, buf);
+                    if (ClientPlayNetworking.canSend(CinderSoulC2SPacket.ID)) {
+                        ClientPlayNetworking.send(new CinderSoulC2SPacket(CinderSoulC2SPacket.TYPE.READY));
                     }
                     this.playSound(SoundEvents.BLOCK_NOTE_BLOCK_CHIME.value(), 1F, 1.2F);
                 }
             }
 
             if (random.nextDouble() < 0.3) {
-                PacketByteBuf buf = PacketByteBufs.create();
-                if (ClientPlayNetworking.canSend(DesolationServerNetworking.PACKET_CINDER_SOUL_TICK)) {
-                    ClientPlayNetworking.send(DesolationServerNetworking.PACKET_CINDER_SOUL_TICK, buf);
+                if (ClientPlayNetworking.canSend(CinderSoulC2SPacket.ID)) {
+                    ClientPlayNetworking.send(new CinderSoulC2SPacket(CinderSoulC2SPacket.TYPE.TICK));
                 }
             }
 
@@ -64,9 +61,8 @@ public class ClientPlayerEntityMixin extends AbstractClientPlayerEntity {
                 dashVector = this.getRotationVector().normalize().multiply(0.75);
                 cinderDashCooldown = 0;
                 isDashing = true;
-                PacketByteBuf buf = PacketByteBufs.create();
-                if (ClientPlayNetworking.canSend(DesolationServerNetworking.PACKET_CINDER_SOUL_DO_CINDER_DASH)) {
-                    ClientPlayNetworking.send(DesolationServerNetworking.PACKET_CINDER_SOUL_DO_CINDER_DASH, buf);
+                if (ClientPlayNetworking.canSend(CinderSoulC2SPacket.ID)) {
+                    ClientPlayNetworking.send(new CinderSoulC2SPacket(CinderSoulC2SPacket.TYPE.DASH));
                 }
             }
 

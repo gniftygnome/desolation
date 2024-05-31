@@ -1,5 +1,6 @@
 package raltsmc.desolation.item;
 
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -11,6 +12,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Optional;
 
 public class AshItem extends ConfigurableFertilizerItem {
     public AshItem(Settings settings) {
@@ -29,8 +33,9 @@ public class AshItem extends ConfigurableFertilizerItem {
             AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(world, target.x, target.y, target.z);
             areaEffectCloudEntity.setDuration(20);
             areaEffectCloudEntity.setParticleType(ParticleTypes.WHITE_ASH);
-            areaEffectCloudEntity.setColor(0xcccccc);
-            areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 40, 1));
+            areaEffectCloudEntity.setPotionContents(new PotionContentsComponent(Optional.empty(),
+                    Optional.of(0xcccccc),
+                    List.of(new StatusEffectInstance(StatusEffects.BLINDNESS, 40, 1))));
             areaEffectCloudEntity.setRadius(0.5F);
             areaEffectCloudEntity.setRadiusOnUse(0.5F);
             areaEffectCloudEntity.setRadiusGrowth(0.03F);

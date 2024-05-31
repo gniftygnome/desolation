@@ -8,15 +8,18 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.registry.RegistryWrapper;
 import raltsmc.desolation.block.CinderfruitPlantBlock;
 import raltsmc.desolation.registry.DesolationBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import raltsmc.desolation.registry.DesolationItems;
 
+import java.util.concurrent.CompletableFuture;
+
 public class DesolationBlockLootTableProvider extends FabricBlockLootTableProvider {
-	protected DesolationBlockLootTableProvider(FabricDataOutput dataOutput) {
-		super(dataOutput);
+	protected DesolationBlockLootTableProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+		super(output, registriesFuture);
 	}
 
 	@Override

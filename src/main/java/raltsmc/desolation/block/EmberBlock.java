@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CampfireBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -11,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShovelItem;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.sound.SoundCategory;
@@ -25,9 +27,13 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 import raltsmc.desolation.registry.DesolationParticles;
 import raltsmc.desolation.registry.DesolationSounds;
 
+// TODO:  Consider merging CooledEmberBlock into EmberBlock,
+//        using Properties.LIT,
+//        and mixing in to tools (flint_and_steel, fire_charge, shovels) to change state.
 public class EmberBlock extends Block {
     private final BlockState cooledState;
 
@@ -37,23 +43,28 @@ public class EmberBlock extends Block {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
-                              BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        Hand hand = player.getActiveHand();
         ItemStack stack = player.getStackInHand(hand);
+
         if (stack.getItem() instanceof ShovelItem) {
-            if (!world.isClient) {
-                world.setBlockState(pos, this.cooledState);
-                world.playSound(null, pos, SoundEvents.BLOCK_BASALT_HIT, SoundCategory.BLOCKS, 1f, 1f);
-                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.3f, 1f);
-                if (!player.getAbilities().creativeMode) {
-                    stack.damage(1, (LivingEntity) player, (p) -> {
-                        p.sendToolBreakStatus(hand);
-                    });
+            if (world.isClient()) {
+                for (int i = 0; i < 20; ++i) {
+                    CampfireBlock.spawnSmokeParticle(world, pos, false, true);
                 }
+            } else {
+                world.syncWorldEvent(null, 1009, pos, 0);
+                stack.damage(1, player, LivingEntity.getSlotForHand(hand));
             }
+            world.playSound(player, pos, SoundEvents.BLOCK_BASALT_HIT, SoundCategory.BLOCKS, 1f, 1f);
+            world.playSound(player, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.3f, 1f);
+            world.setBlockState(pos, this.cooledState);
+            world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+
             return ActionResult.success(world.isClient);
         }
-        return super.onUse(state, world, pos, player, hand, hit);
+
+        return super.onUse(state, world, pos, player, hit);
     }
 
     @Override
@@ -89,7 +100,7 @@ public class EmberBlock extends Block {
             world.addParticle(ParticleTypes.LARGE_SMOKE, d + g, e + h, f + i, 0.0D, 0.1D + rdY, 0.0D);
         }
         if (random.nextFloat() < 0.3f) {
-            world.addParticle(DesolationParticles.SPARK, d + j, e + k, f + l, 0.0D, random.nextDouble() * 0.3D + 0.1D, 0.0D);
+            world.addParticle((ParticleEffect) DesolationParticles.SPARK, d + j, e + k, f + l, 0.0D, random.nextDouble() * 0.3D + 0.1D, 0.0D);
             if (random.nextFloat() < 0.05f) {
                 int index = random.nextInt(4);
                 SoundEvent popSound = switch (index) {

@@ -12,7 +12,7 @@
     "client.gui.hud.InGameHudMixin",
     "client.network.ClientPlayerEntityMixin",
     "client.sound.BiomeEffectSoundPlayerMixin",
-    "potion.PotionUtilMixin"
+    "potion.PotionContentsComponentMixin"
   ],
   "injectors": {
     "defaultRequire": 1

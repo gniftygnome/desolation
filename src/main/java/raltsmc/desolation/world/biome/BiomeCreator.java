@@ -1,20 +1,24 @@
 package raltsmc.desolation.world.biome;
 
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryEntryLookup;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.carver.ConfiguredCarver;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.PlacedFeature;
 import raltsmc.desolation.registry.DesolationEntities;
 import raltsmc.desolation.world.feature.DesolationPlacedFeatures;
 
 public class BiomeCreator {
-    public static Biome createCharredForest(FabricDynamicRegistryProvider.Entries entries, boolean isClearing, boolean isSmall) {
+    public static Biome createCharredForest(Registerable<Biome> registerable, boolean isClearing, boolean isSmall) {
         return new Biome.Builder()
-                .generationSettings(createGenerationSettings(entries, isClearing, isSmall))
+                .generationSettings(createGenerationSettings(registerable, isClearing, isSmall))
                 .spawnSettings(createSpawnSettings())
                 .precipitation(false)
                 .temperature(0.9F)
@@ -34,8 +38,11 @@ public class BiomeCreator {
                 .build();
     }
 
-    private static GenerationSettings createGenerationSettings(FabricDynamicRegistryProvider.Entries entries, boolean isClearing, boolean isSmall) {
-        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(entries.placedFeatures(), entries.configuredCarvers());
+    private static GenerationSettings createGenerationSettings(Registerable<Biome> registerable, boolean isClearing, boolean isSmall) {
+        RegistryEntryLookup<ConfiguredCarver<?>> configuredCarvers = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_CARVER);
+        RegistryEntryLookup<PlacedFeature> placedFeatures = registerable.getRegistryLookup(RegistryKeys.PLACED_FEATURE);
+
+        GenerationSettings.LookupBackedBuilder generationSettings = new GenerationSettings.LookupBackedBuilder(placedFeatures, configuredCarvers);
 
         DefaultBiomeFeatures.addLandCarvers(generationSettings);
         DefaultBiomeFeatures.addAmethystGeodes(generationSettings);
@@ -46,22 +53,22 @@ public class BiomeCreator {
         DefaultBiomeFeatures.addSprings(generationSettings);
         if (isSmall) {
             if (!isClearing) {
-                generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.TREES_CHARRED_SMALL));
+                generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.TREES_CHARRED_SMALL));
             }
-            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.TREES_CHARRED_FALLEN_SMALL));
+            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.TREES_CHARRED_FALLEN_SMALL));
         } else {
             if (!isClearing) {
-                generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.TREES_CHARRED_LARGE));
+                generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.TREES_CHARRED_LARGE));
             }
-            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.PATCH_CHARRED_SAPLING));
-            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.TREES_CHARRED_FALLEN_LARGE));
+            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_CHARRED_SAPLING));
+            generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.TREES_CHARRED_FALLEN_LARGE));
         }
-        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, entries.ref(DesolationPlacedFeatures.PATCH_ASH_LAYER));
-        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, entries.ref(DesolationPlacedFeatures.PATCH_EMBER_CHUNK));
-        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, entries.ref(DesolationPlacedFeatures.GIANT_BOULDER));
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.PATCH_SCORCHED_TUFT));
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.PATCH_ASH_BRAMBLE));
-        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, entries.ref(DesolationPlacedFeatures.PLANT_CINDERFRUIT));
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_ASH_LAYER));
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_EMBER_CHUNK));
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.GIANT_BOULDER));
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_SCORCHED_TUFT));
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_ASH_BRAMBLE));
+        generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PLANT_CINDERFRUIT));
 
         return generationSettings.build();
     }

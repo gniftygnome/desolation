@@ -1,8 +1,8 @@
 package raltsmc.desolation.registry;
 
 import dev.emi.trinkets.api.TrinketItem;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
@@ -104,12 +104,12 @@ public final class DesolationItems {
         PRIMED_ASH = DesolationRegistries.register("primed_ash", new Item(new Item.Settings()));
         ACTIVATED_CHARCOAL = DesolationRegistries.register("activated_charcoal", new Item(new Item.Settings()));
         AIR_FILTER = DesolationRegistries.register("air_filter", new Item(new Item.Settings()));
-        MASK = DesolationRegistries.register("mask", new TrinketItem(new FabricItemSettings().maxCount(1)));
-        GOGGLES = DesolationRegistries.register("goggles", new TrinketItem(new FabricItemSettings().maxCount(1)));
-        //MASK_GOGGLES = DesolationRegistries.register("mask_and_goggles", new Item(new FabricItemSettings().equipmentSlot(itemStack -> EquipmentSlot.HEAD).maxCount(1)));
+        MASK = DesolationRegistries.register("mask", new TrinketItem(new Item.Settings().maxCount(1)));
+        GOGGLES = DesolationRegistries.register("goggles", new TrinketItem(new Item.Settings().maxCount(1)));
+        //MASK_GOGGLES = DesolationRegistries.register("mask_and_goggles", new Item(new Item.Settings().equipmentSlot(itemStack -> EquipmentSlot.HEAD).maxCount(1)));
         CINDERFRUIT = DesolationRegistries.register("cinderfruit",
                 new Item(new Item.Settings().food(new FoodComponent.Builder()
-                        .hunger(5)
+                        .nutrition(5)
                         .saturationModifier(6.5F)
                         .alwaysEdible()
                         .statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 200), 100)

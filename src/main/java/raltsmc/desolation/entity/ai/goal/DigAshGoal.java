@@ -12,16 +12,15 @@ import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
-import raltsmc.desolation.Desolation;
 import raltsmc.desolation.entity.AshScuttlerEntity;
 import raltsmc.desolation.registry.DesolationBlocks;
 import raltsmc.desolation.registry.DesolationItems;
+import raltsmc.desolation.registry.DesolationLootTables;
 
 import java.util.EnumSet;
 import java.util.Optional;
@@ -74,12 +73,11 @@ public class DigAshGoal extends MoveToTargetPosGoal {
             if (++digTick >= DIG_DURATION_TICKS) {
                 if (!world.isClient) {
                     assert world.getServer() != null;
-                    Identifier id = Desolation.id("misc/ash_scuttler_dig");
 
                     world.breakBlock(targetPos, false, mob, 1);
                     world.syncWorldEvent(2001, targetPos, 0);
 
-                    LootTable lootTable = world.getServer().getLootManager().getLootTable(id);
+                    LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(DesolationLootTables.ASH_SCUTTLER_DIG);
                     LootContextParameterSet parameterSet = new LootContextParameterSet.Builder((ServerWorld) world)
                             .add(LootContextParameters.ORIGIN, location)
                             .add(LootContextParameters.THIS_ENTITY, mob)
