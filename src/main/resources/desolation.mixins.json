@@ -4,6 +4,7 @@
   "package": "raltsmc.desolation.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "enchantment.EnchantmentHelperMixin",
     "entity.LivingEntityMixin",
     "entity.player.PlayerEntityMixin",
     "tree.TrunkPlacerMixin"

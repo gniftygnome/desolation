@@ -20,7 +20,7 @@ public class HeadTrinketRenderer implements TrinketRenderer {
     private final BipedEntityModel<LivingEntity> model;
 
     public HeadTrinketRenderer(String path, BipedEntityModel<LivingEntity> model) {
-        this(Desolation.id(path), model);
+        this(Identifier.of(Desolation.MOD_ID, path), model);
     }
 
     public HeadTrinketRenderer(Identifier texture, BipedEntityModel<LivingEntity> model) {
@@ -46,12 +46,12 @@ public class HeadTrinketRenderer implements TrinketRenderer {
         model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
         model.animateModel(entity, limbAngle, limbDistance, tickDelta);
         TrinketRenderer.followBodyRotations(entity, model);
-        render(matrices, vertexConsumers, light, stack.hasGlint());
+        render(matrices, vertexConsumers, light);
     }
 
-    protected void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, boolean hasGlint) {
+    protected void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         RenderLayer layer = model.getLayer(getTexture());
-        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, layer, false, hasGlint);
-        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1f, 1f, 1f, 1f);
+        VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, layer, false);
+        model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV);
     }
 }

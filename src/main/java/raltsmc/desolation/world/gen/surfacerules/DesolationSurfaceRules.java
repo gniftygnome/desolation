@@ -8,6 +8,10 @@ import raltsmc.desolation.registry.DesolationBlocks;
 
 // Contains all of the surface rules used by Desolation
 public class DesolationSurfaceRules {
+	@SuppressWarnings("UnnecessaryReturnStatement")
+	private DesolationSurfaceRules() {
+		return;
+	}
 
     private static MaterialRules.MaterialRule block(Block block) {
         return MaterialRules.block(block.getDefaultState());

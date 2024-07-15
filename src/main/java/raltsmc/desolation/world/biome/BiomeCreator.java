@@ -16,6 +16,11 @@ import raltsmc.desolation.registry.DesolationEntities;
 import raltsmc.desolation.world.feature.DesolationPlacedFeatures;
 
 public class BiomeCreator {
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private BiomeCreator() {
+        return;
+    }
+
     public static Biome createCharredForest(Registerable<Biome> registerable, boolean isClearing, boolean isSmall) {
         return new Biome.Builder()
                 .generationSettings(createGenerationSettings(registerable, isClearing, isSmall))

@@ -2,11 +2,10 @@ package raltsmc.desolation.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBiomeTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.biome.Biome;
 import raltsmc.desolation.registry.DesolationBiomes;
 import raltsmc.desolation.tag.DesolationBiomeTags;
@@ -23,7 +22,7 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 		/*
 		 * Vanilla biome categories
 		 */
-		getOrCreateTagBuilder(TagKey.of(RegistryKeys.BIOME, BiomeTags.IS_FOREST.id()))
+		getOrCreateTagBuilder(BiomeTags.IS_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
@@ -31,12 +30,12 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 		/*
 		 * Conventional biome categories
 		 */
-		getOrCreateTagBuilder(TagKey.of(RegistryKeys.BIOME, ConventionalBiomeTags.CLIMATE_TEMPERATE.id()))
+		getOrCreateTagBuilder(ConventionalBiomeTags.IS_TEMPERATE_OVERWORLD)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(TagKey.of(RegistryKeys.BIOME, ConventionalBiomeTags.IN_OVERWORLD.id()))
+		getOrCreateTagBuilder(ConventionalBiomeTags.IS_OVERWORLD)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
@@ -45,17 +44,22 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 		/*
 		 * Biome structure generation tags
 		 */
-		getOrCreateTagBuilder(TagKey.of(RegistryKeys.BIOME, BiomeTags.MINESHAFT_HAS_STRUCTURE.id()))
+		getOrCreateTagBuilder(BiomeTags.MINESHAFT_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(TagKey.of(RegistryKeys.BIOME, BiomeTags.RUINED_PORTAL_STANDARD_HAS_STRUCTURE.id()))
+		getOrCreateTagBuilder(BiomeTags.RUINED_PORTAL_STANDARD_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(TagKey.of(RegistryKeys.BIOME, BiomeTags.STRONGHOLD_HAS_STRUCTURE.id()))
+		getOrCreateTagBuilder(BiomeTags.STRONGHOLD_HAS_STRUCTURE)
+			.addOptional(DesolationBiomes.CHARRED_FOREST)
+			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
+			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
+
+		getOrCreateTagBuilder(BiomeTags.TRIAL_CHAMBERS_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);

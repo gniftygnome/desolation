@@ -1,5 +1,6 @@
 package raltsmc.desolation.client.render.entity.model;
 
+import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 import raltsmc.desolation.entity.BlackenedEntity;
 import software.bernie.geckolib.animation.AnimationState;
@@ -9,7 +10,7 @@ import software.bernie.geckolib.model.data.EntityModelData;
 
 public class BlackenedEntityModel extends DefaultedEntityGeoModel<BlackenedEntity> {
 	public BlackenedEntityModel() {
-		super(Desolation.id("blackened"), true);
+		super(Identifier.of(Desolation.MOD_ID, "blackened"), true);
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import raltsmc.desolation.registry.DesolationBlocks;
 import raltsmc.desolation.registry.DesolationBoatTypes;
-import raltsmc.desolation.registry.DesolationItems;
 import raltsmc.desolation.tag.DesolationBlockTags;
 import raltsmc.desolation.tag.DesolationItemTags;
 
@@ -29,9 +28,6 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 		copy(BlockTags.LEAVES, ItemTags.LEAVES);
 
 		copy(BlockTags.LOGS, ItemTags.LOGS);
-
-		getOrCreateTagBuilder(ItemTags.MUSIC_DISCS)
-			.add(DesolationItems.MUSIC_DISC_ASHES);
 
 		getOrCreateTagBuilder(ItemTags.NON_FLAMMABLE_WOOD)
 			.addTag(DesolationItemTags.CHARRED_LOGS)

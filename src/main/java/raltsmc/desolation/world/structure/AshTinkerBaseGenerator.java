@@ -48,18 +48,4 @@ public class AshTinkerBaseGenerator extends SimpleStructurePiece {
             }
         }
     }
-
-    /*public boolean generate(StructureWorldAccess structureWorldAccess, StructureAccessor structureAccessor,
-                             ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos blockPos) {
-        StructurePlacementData placementData = (new StructurePlacementData()).setRotation(this.rotation).setMirror(BlockMirror.NONE).addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
-        BlockPos blockPos2 = BlockPos.ORIGIN;
-        BlockPos blockPos3 = this.pos.add(Structure.transform(placementData, new BlockPos(3-blockPos2.getX(), 0, -blockPos2.getZ())));
-        int i = structureWorldAccess.getTopY(Heightmap.Type.WORLD_SURFACE_WG, blockPos3.getX(), blockPos3.getZ());
-        BlockPos blockPos4 = this.pos;
-        this.pos = this.pos.add(0, i-90-1, 0);
-        boolean bl = super.generate(structureWorldAccess, structureAccessor, chunkGenerator, random, boundingBox,
-                chunkPos, blockPos);
-        this.pos = blockPos4;
-        return bl;
-    }*/
 }

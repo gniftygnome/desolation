@@ -146,18 +146,18 @@ public class DesolationRecipeProvider extends FabricRecipeProvider {
 				.pattern("LL")
 				.input('L', DesolationBlocks.CHARRED_LOG)
 				.criterion("has_logs", InventoryChangedCriterion.Conditions.items(DesolationBlocks.CHARRED_LOG))
-				.offerTo(exporter, Desolation.id("charred_wood"));
+				.offerTo(exporter, Identifier.of(Desolation.MOD_ID, "charred_wood"));
 
 		new ShapedRecipeJsonBuilder(RecipeCategory.BUILDING_BLOCKS, DesolationBlocks.STRIPPED_CHARRED_WOOD, 3)
 				.pattern("LL")
 				.pattern("LL")
 				.input('L', DesolationBlocks.STRIPPED_CHARRED_LOG)
 				.criterion("has_logs", InventoryChangedCriterion.Conditions.items(DesolationBlocks.STRIPPED_CHARRED_LOG))
-				.offerTo(exporter, Desolation.id("stripped_charred_wood"));
+				.offerTo(exporter, Identifier.of(Desolation.MOD_ID, "stripped_charred_wood"));
 	}
 
 	@Override
 	protected Identifier getRecipeIdentifier(Identifier identifier) {
-		return Desolation.id(identifier.getPath());
+		return Identifier.of(Desolation.MOD_ID, identifier.getPath());
 	}
 }

@@ -45,8 +45,7 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-//	include(modApi("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"))
-	include(modApi("software.bernie.geckolib:geckolib-fabric-1.20.6:${project.geckolib_version}"))
+	include(modApi("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"))
 
 	include(modApi("com.terraformersmc:biolith-fabric:${biolith_version}"))
 

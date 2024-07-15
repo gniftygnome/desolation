@@ -4,6 +4,7 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
 import net.minecraft.world.gen.feature.*;
@@ -26,6 +27,11 @@ public class DesolationPlacedFeatures {
     public static final RegistryKey<PlacedFeature> PATCH_ASH_BRAMBLE = createRegistryKey("patch_ash_bramble");
     public static final RegistryKey<PlacedFeature> PLANT_CINDERFRUIT = createRegistryKey("plant_cinderfruit");
     public static final RegistryKey<PlacedFeature> GIANT_BOULDER = createRegistryKey("giant_boulder");
+
+	@SuppressWarnings("UnnecessaryReturnStatement")
+	private DesolationPlacedFeatures() {
+		return;
+	}
 
     public static void bootstrap(Registerable<PlacedFeature> registerable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> configuredFeatures = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
@@ -92,7 +98,7 @@ public class DesolationPlacedFeatures {
     }
 
     private static RegistryKey<PlacedFeature> createRegistryKey(String name) {
-        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, Desolation.id(name));
+        return RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(Desolation.MOD_ID, name));
     }
 
     private static void registerTreeFeature(Registerable<PlacedFeature> registerable, RegistryKey<PlacedFeature> key, int count, BlockPredicate predicate, RegistryKey<ConfiguredFeature<?, ?>> feature) {

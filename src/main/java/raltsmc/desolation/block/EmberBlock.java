@@ -5,9 +5,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -69,10 +69,15 @@ public class EmberBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!world.isClient && !entity.isFireImmune() && entity instanceof LivingEntity && !EnchantmentHelper.hasFrostWalker((LivingEntity)entity)) {
-            entity.damage(world.getDamageSources().hotFloor(), 1.0F);
-            if (Math.random() > 0.9D) {
-                entity.setFireTicks(120);
+        if (!world.isClient && !entity.isFireImmune()) {
+            DamageSource hotFloor = world.getDamageSources().hotFloor();
+
+            if (entity instanceof LivingEntity && !entity.isInvulnerableTo(hotFloor)) {
+                entity.damage(hotFloor, 1.0F);
+
+                if (Math.random() > 0.9D) {
+                    entity.setFireTicks(120);
+                }
             }
         }
 

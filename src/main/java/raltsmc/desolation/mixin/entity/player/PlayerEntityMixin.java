@@ -1,10 +1,7 @@
 package raltsmc.desolation.mixin.entity.player;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -12,7 +9,6 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
@@ -23,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import raltsmc.desolation.Desolation;
-import raltsmc.desolation.registry.DesolationStatusEffects;
 import raltsmc.desolation.registry.DesolationItems;
 
 import java.util.Optional;
@@ -69,42 +64,5 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.removeStatusEffect(StatusEffects.BLINDNESS);
             }
         }
-    }
-
-    /*
-     * This causes logic in attack() to treat attackers with Cinder Soul as if they had Fire Aspect.
-     * The purpose is to cause killed entities to be treated as if they were on fire when they died.
-     */
-    @WrapOperation(method = "attack", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/enchantment/EnchantmentHelper;getFireAspect(Lnet/minecraft/entity/LivingEntity;)I"
-    ))
-    @SuppressWarnings("unused")
-    private int desolation$igniteTarget(LivingEntity entity, Operation<Integer> operation) {
-        int level = operation.call(entity);
-
-        if (level < 1 && entity.hasStatusEffect(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL))) {
-            level = 1;
-        }
-
-        return level;
-    }
-
-    /*
-     * In the event an attacker with Cinder Soul is setting a target on fire, this increases
-     * the duration of the status ailment if Cinder Soul would outlast Fire Aspect.
-     */
-    @WrapOperation(method = "attack", at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/entity/Entity;setOnFireFor(I)V",
-            ordinal = 1
-    ))
-    @SuppressWarnings("unused")
-    private void desolation$burnTarget(Entity instance, int duration, Operation<Integer> operation) {
-        if (duration < 6 && this.hasStatusEffect(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL))) {
-            duration = 6;
-        }
-
-        operation.call(instance, duration);
     }
 }

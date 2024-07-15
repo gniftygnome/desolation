@@ -8,11 +8,11 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import raltsmc.desolation.Desolation;
 import raltsmc.desolation.item.AshItem;
 import raltsmc.desolation.item.CinderHeartItem;
-import raltsmc.desolation.item.DesolationMusicDiscItem;
 
 public final class DesolationItems {
     public static BlockItem CHARRED_SOIL;
@@ -63,8 +63,13 @@ public final class DesolationItems {
     public static Item SPAWN_EGG_ASH_SCUTTLER;
     public static Item SPAWN_EGG_BLACKENED;
 
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private DesolationItems() {
+        return;
+    }
+
     public static Item register(Item item, String path) {
-        return Registry.register(Registries.ITEM, Desolation.id(path), item);
+        return Registry.register(Registries.ITEM, Identifier.of(Desolation.MOD_ID, path), item);
     }
 
     static void init() {
@@ -118,8 +123,7 @@ public final class DesolationItems {
         INFUSED_POWDER = DesolationRegistries.register("infused_powder", new Item(new Item.Settings()));
         HEART_OF_CINDER = DesolationRegistries.register("heart_of_cinder", new CinderHeartItem(new Item.Settings().rarity(Rarity.RARE)));
 
-        MUSIC_DISC_ASHES = DesolationRegistries.register("music_disc_ashes", new DesolationMusicDiscItem(14, DesolationSounds.MUSIC_DISC_ASHES_SOUND, (new Item.Settings().rarity(Rarity.RARE).maxCount(1)), 93));
-
+        MUSIC_DISC_ASHES = DesolationRegistries.register("music_disc_ashes", new Item(new Item.Settings().maxCount(1).rarity(Rarity.RARE).jukeboxPlayable(DesolationJukeboxSongs.ASHES)));
         SPAWN_EGG_ASH_SCUTTLER = DesolationRegistries.register("ash_scuttler_spawn_egg",
                 new SpawnEggItem(DesolationEntities.ASH_SCUTTLER, 0x111111, 0xff7b00, new Item.Settings()));
         SPAWN_EGG_BLACKENED = DesolationRegistries.register("blackened_spawn_egg",

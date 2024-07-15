@@ -29,10 +29,9 @@ import raltsmc.desolation.registry.DesolationParticles;
 
 @Environment(EnvType.CLIENT)
 public class DesolationClient implements ClientModInitializer {
-
     public static KeyBinding cinderDashBinding;
-    public static final EntityModelLayer HEAD_MASK_LAYER = new EntityModelLayer(Desolation.id("mask"), "main");
-    public static final EntityModelLayer HEAD_GOGGLES_LAYER = new EntityModelLayer(Desolation.id("goggles"), "main");
+    public static final EntityModelLayer HEAD_MASK_LAYER = new EntityModelLayer(Identifier.of(Desolation.MOD_ID, "mask"), "main");
+    public static final EntityModelLayer HEAD_GOGGLES_LAYER = new EntityModelLayer(Identifier.of(Desolation.MOD_ID, "goggles"), "main");
 
     @Override
     public void onInitializeClient() {
@@ -50,7 +49,7 @@ public class DesolationClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HEAD_MASK_LAYER, HeadTrinketModel::createMaskData);
         EntityModelLayerRegistry.registerModelLayer(HEAD_GOGGLES_LAYER, HeadTrinketModel::createGogglesData);
 
-        TerraformBoatClientHelper.registerModelLayers(new Identifier(Desolation.MOD_ID, "charred"), false);
+        TerraformBoatClientHelper.registerModelLayers(Identifier.of(Desolation.MOD_ID, "charred"), false);
 
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TrinketRenderers());
 

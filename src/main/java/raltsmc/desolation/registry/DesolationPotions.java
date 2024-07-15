@@ -6,9 +6,9 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.Potions;
-import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 
 public class DesolationPotions {
@@ -17,8 +17,13 @@ public class DesolationPotions {
     public static final Potion BLINDNESS = register("blindness", new Potion(new StatusEffectInstance(StatusEffects.BLINDNESS, 1200)));
     public static final Potion LONG_BLINDNESS = register("long_blindness", new Potion("blindness", new StatusEffectInstance(StatusEffects.BLINDNESS, 3600)));
 
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private DesolationPotions() {
+        return;
+    }
+
     private static Potion register(String id, Potion potion) {
-        return Registry.register(Registries.POTION, Desolation.id(id), potion);
+        return Registry.register(Registries.POTION, Identifier.of(Desolation.MOD_ID, id), potion);
     }
 
     public static void init() {

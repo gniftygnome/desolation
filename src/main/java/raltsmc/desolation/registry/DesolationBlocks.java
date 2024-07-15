@@ -1,9 +1,9 @@
 package raltsmc.desolation.registry;
 
-import com.terraformersmc.terraform.sign.block.TerraformHangingSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformWallHangingSignBlock;
-import com.terraformersmc.terraform.sign.block.TerraformWallSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformHangingSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformWallHangingSignBlock;
+import com.terraformersmc.terraform.sign.api.block.TerraformWallSignBlock;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
@@ -45,6 +45,11 @@ public final class DesolationBlocks {
     public static Block CHARRED_FENCE_GATE;
     public static Block CHARRED_BUTTON;
     public static Block CHARRED_DOOR;
+
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private DesolationBlocks() {
+        return;
+    }
 
     static void init() {
         CHARRED_SOIL = DesolationRegistries.register("charred_soil", new Block(AbstractBlock.Settings.copy(Blocks.DIRT).mapColor(MapColor.GRAY).sounds(BlockSoundGroup.GRAVEL)));

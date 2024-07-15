@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class AshTinkerBaseStructure extends Structure {
     public static final MapCodec<AshTinkerBaseStructure> CODEC = AshTinkerBaseStructure.createCodec(AshTinkerBaseStructure::new);
-    private static final Identifier TINKER_BASE_MAIN = Desolation.id("ash_tinker_base/ash_tinker_base");
+    private static final Identifier TINKER_BASE_MAIN = Identifier.of(Desolation.MOD_ID, "ash_tinker_base/ash_tinker_base");
 
     public AshTinkerBaseStructure(Structure.Config config) {
         super(config);

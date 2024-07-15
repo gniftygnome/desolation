@@ -23,6 +23,6 @@ public class TrinketRenderers implements SimpleSynchronousResourceReloadListener
 
     @Override
     public Identifier getFabricId() {
-        return Desolation.id("trinket_renderers");
+        return Identifier.of(Desolation.MOD_ID, "trinket_renderers");
     }
 }

@@ -5,6 +5,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -16,7 +17,7 @@ public class GeoGlowLayerRenderer<T extends Entity & GeoAnimatable> extends GeoR
 
     public GeoGlowLayerRenderer(GeoRenderer<T> entityRendererIn, String texture) {
         super(entityRendererIn);
-        this.skin = RenderLayer.getEyes(Desolation.id(texture));
+        this.skin = RenderLayer.getEyes(Identifier.of(Desolation.MOD_ID, texture));
     }
 
     @Override

@@ -43,6 +43,11 @@ public class DesolationItemGroups {
     private static final Item TOOLS_DISC = Items.MUSIC_DISC_PIGSTEP;
     private static final Item TOOLS_WEARABLE = Items.ELYTRA;
 
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private DesolationItemGroups() {
+        return;
+    }
+
     static {
         ITEM_GROUP_ENTRY_MAPS = new HashMap<>(8);
 

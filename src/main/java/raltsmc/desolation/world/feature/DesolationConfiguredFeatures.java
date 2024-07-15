@@ -6,6 +6,7 @@ import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
@@ -41,6 +42,11 @@ public final class DesolationConfiguredFeatures {
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_ASH_BRAMBLE = createRegistryKey("patch_ash_bramble");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PLANT_CINDERFRUIT = createRegistryKey("plant_cinderfruit");
     public static final RegistryKey<ConfiguredFeature<?, ?>> GIANT_BOULDER = createRegistryKey("giant_boulder");
+
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private DesolationConfiguredFeatures() {
+        return;
+    }
 
     public static void bootstrap(Registerable<ConfiguredFeature<?, ?>> registerable) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> configuredFeatures = registerable.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
@@ -160,6 +166,6 @@ public final class DesolationConfiguredFeatures {
     }
 
     private static RegistryKey<ConfiguredFeature<?, ?>> createRegistryKey(String name) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Desolation.id(name));
+        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Desolation.MOD_ID, name));
     }
 }

@@ -15,7 +15,7 @@
   "item.desolation.ash_scuttler_spawn_egg": "Яйцо Призыва Пепельного Щитовика",
   "item.desolation.blackened_spawn_egg": "Яйцо Призыва Сожжённого Скелета",
   "item.desolation.music_disc_ashes": "Пластинка",
-  "item.desolation.music_disc_ashes.desc": "RaltsMC - Ashes",
+  "jukebox_song.desolation.ashes": "RaltsMC - Ashes",
   "block.desolation.ash": "Пепел",
   "block.desolation.ash_block": "Блок Пепла",
   "block.desolation.ember_block": "Блок Тлеющего Угля",

@@ -15,6 +15,11 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DesolationServerNetworking {
+    @SuppressWarnings("UnnecessaryReturnStatement")
+    private DesolationServerNetworking() {
+        return;
+    }
+
     public static void init() {
         PayloadTypeRegistry.playC2S().register(CinderSoulC2SPacket.ID, CinderSoulC2SPacket.CODEC);
 

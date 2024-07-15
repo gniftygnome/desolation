@@ -13,6 +13,11 @@ public class DesolationBoatTypes {
 	public static Item CHARRED_BOAT;
 	public static Item CHARRED_CHEST_BOAT;
 
+	@SuppressWarnings("UnnecessaryReturnStatement")
+	private DesolationBoatTypes() {
+		return;
+	}
+
 	public static void init() {
 		final Identifier CHARRED_BOAT_ID = Identifier.of(Desolation.MOD_ID, "charred_boat");
 		final Identifier CHARRED_CHEST_BOAT_ID = Identifier.of(Desolation.MOD_ID, "charred_chest_boat");

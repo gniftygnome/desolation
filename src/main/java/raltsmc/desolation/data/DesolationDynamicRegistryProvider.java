@@ -8,6 +8,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.entry.RegistryEntry;
 import raltsmc.desolation.Desolation;
 import raltsmc.desolation.registry.DesolationBiomes;
+import raltsmc.desolation.registry.DesolationJukeboxSongs;
 import raltsmc.desolation.world.feature.DesolationConfiguredFeatures;
 import raltsmc.desolation.world.feature.DesolationPlacedFeatures;
 
@@ -23,6 +24,7 @@ public class DesolationDynamicRegistryProvider extends FabricDynamicRegistryProv
 		registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, DesolationConfiguredFeatures::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, DesolationPlacedFeatures::bootstrap);
 		registryBuilder.addRegistry(RegistryKeys.BIOME, DesolationBiomes::bootstrap);
+		registryBuilder.addRegistry(RegistryKeys.JUKEBOX_SONG, DesolationJukeboxSongs::bootstrap);
 	}
 
 	@Override
@@ -30,6 +32,7 @@ public class DesolationDynamicRegistryProvider extends FabricDynamicRegistryProv
 		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE), Desolation.MOD_ID);
 		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE), Desolation.MOD_ID);
 		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.BIOME), Desolation.MOD_ID);
+		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.JUKEBOX_SONG), Desolation.MOD_ID);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.biome.Biome;
 import raltsmc.desolation.Desolation;
 
+@SuppressWarnings("SameParameterValue")
 public final class DesolationBiomeTags {
 	public static final TagKey<Biome> ASH_TINKER_BASE_HAS_STRUCTURE = DesolationBiomeTags.of("ash_tinker_base_has_structure");
 
@@ -15,7 +16,7 @@ public final class DesolationBiomeTags {
 	}
 
 	private static TagKey<Biome> of(String path) {
-		return DesolationBiomeTags.of(Desolation.id(path));
+		return DesolationBiomeTags.of(Identifier.of(Desolation.MOD_ID, path));
 	}
 
 	private static TagKey<Biome> of(Identifier id) {
