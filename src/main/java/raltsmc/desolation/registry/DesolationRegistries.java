@@ -1,5 +1,6 @@
 package raltsmc.desolation.registry;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -11,10 +12,11 @@ import raltsmc.desolation.Desolation;
 import raltsmc.desolation.world.feature.DesolationFeatures;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class DesolationRegistries {
     @SuppressWarnings("UnnecessaryReturnStatement")
-    public DesolationRegistries() {
+    private DesolationRegistries() {
         return;
     }
 
@@ -30,33 +32,41 @@ public class DesolationRegistries {
      * @return Newly created {@link BlockItem}
      */
     public static BlockItem registerBlockItem(String name, Block block) {
-        BlockItem item = new BlockItem(block, new Item.Settings());
-        return register(name, item);
+        return register(name, settings -> new BlockItem(block, settings), new Item.Settings());
     }
 
     /**
      * Registers an item.
      *
      * @param name Name ({@link Identifier} path string) of the item
-     * @param item {@link Item} to be registered
+     * @param factory Factory function to create {@link Item} from settings
+     * @param settings {@link Item.Settings} of the item
      * @return Newly registered {@link Item}
      */
-    public static <I extends Item> I register(String name, I item) {
+    public static <I extends Item> I register(String name, Function<Item.Settings, I> factory, Item.Settings settings) {
+        RegistryKey<Item> key = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Desolation.MOD_ID, name));
+        I item = factory.apply(settings.registryKey(key));
+
         if (item instanceof BlockItem blockItem) {
             blockItem.appendBlocks(Item.BLOCK_ITEMS, blockItem);
         }
-        return Registry.register(Registries.ITEM, Identifier.of(Desolation.MOD_ID, name), item);
+
+        return Registry.register(Registries.ITEM, key, item);
     }
 
     /**
      * Registers a block.
      *
      * @param name Name ({@link Identifier} path string) of the block
-     * @param block {@link Block} to be registered
+     * @param factory Factory function to create {@link Block} from settings
+     * @param settings {@link AbstractBlock.Settings} of the block
      * @return Newly registered {@link Block}
      */
-    public static <B extends Block> B register(String name, B block) {
-        return Registry.register(Registries.BLOCK, Identifier.of(Desolation.MOD_ID, name), block);
+    public static <B extends Block> B register(String name, Function<AbstractBlock.Settings, B> factory, AbstractBlock.Settings settings) {
+        RegistryKey<Block> key = RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(Desolation.MOD_ID, name));
+        B block = factory.apply(settings.registryKey(key));
+
+        return Registry.register(Registries.BLOCK, key, block);
     }
 
     /*
@@ -119,7 +129,7 @@ public class DesolationRegistries {
         DesolationSounds.init();
         DesolationBlocks.init();
         DesolationItems.init();
-        DesolationBoatTypes.init();
+        DesolationBoats.init();
         DesolationEntities.init();
         DesolationTrunkPlacerTypes.init();
         DesolationFoliagePlacerTypes.init();

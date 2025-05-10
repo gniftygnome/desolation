@@ -29,10 +29,10 @@ public class DesolationDynamicRegistryProvider extends FabricDynamicRegistryProv
 
 	@Override
 	public void configure(RegistryWrapper.WrapperLookup registries, Entries entries) {
-		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.CONFIGURED_FEATURE), Desolation.MOD_ID);
-		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.PLACED_FEATURE), Desolation.MOD_ID);
-		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.BIOME), Desolation.MOD_ID);
-		addAll(entries, registries.getWrapperOrThrow(RegistryKeys.JUKEBOX_SONG), Desolation.MOD_ID);
+		addAll(entries, registries.getOrThrow(RegistryKeys.CONFIGURED_FEATURE), Desolation.MOD_ID);
+		addAll(entries, registries.getOrThrow(RegistryKeys.PLACED_FEATURE), Desolation.MOD_ID);
+		addAll(entries, registries.getOrThrow(RegistryKeys.BIOME), Desolation.MOD_ID);
+		addAll(entries, registries.getOrThrow(RegistryKeys.JUKEBOX_SONG), Desolation.MOD_ID);
 	}
 
 	@Override

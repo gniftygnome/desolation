@@ -1,5 +1,6 @@
 package raltsmc.desolation.data;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
@@ -8,6 +9,7 @@ import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import raltsmc.desolation.block.CinderfruitPlantBlock;
 import raltsmc.desolation.registry.DesolationBlocks;
@@ -24,6 +26,9 @@ public class DesolationBlockLootTableProvider extends FabricBlockLootTableProvid
 
 	@Override
 	public void generate() {
+		//noinspection unused
+		RegistryWrapper.Impl<Enchantment> enchantmentRegistry = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
+
 		addDrop(DesolationBlocks.ACTIVATED_CHARCOAL_BLOCK);
 		addDropWithSilkTouch(DesolationBlocks.ASH_LAYER_BLOCK);
 		addDrop(DesolationBlocks.ASH_LAYER_BLOCK, block -> drops(block, DesolationItems.ASH_PILE));

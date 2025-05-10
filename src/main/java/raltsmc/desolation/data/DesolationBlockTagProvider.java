@@ -2,6 +2,7 @@ package raltsmc.desolation.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import raltsmc.desolation.registry.DesolationBlocks;
@@ -99,5 +100,13 @@ public class DesolationBlockTagProvider extends FabricTagProvider.BlockTagProvid
 			.add(DesolationBlocks.CHARRED_SOIL)
 			.add(DesolationBlocks.COOLED_EMBER_BLOCK)
 			.add(DesolationBlocks.EMBER_BLOCK);
+
+
+		getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_LOGS)
+			.add(DesolationBlocks.STRIPPED_CHARRED_LOG);
+
+		getOrCreateTagBuilder(ConventionalBlockTags.STRIPPED_WOODS)
+			.add(DesolationBlocks.STRIPPED_CHARRED_WOOD);
+
 	}
 }

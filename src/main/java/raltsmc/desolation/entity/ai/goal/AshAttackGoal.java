@@ -5,6 +5,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import raltsmc.desolation.entity.BlackenedEntity;
 
@@ -143,7 +144,9 @@ public class AshAttackGoal extends Goal {
             this.mob.setMeleeAttacking(true);
             this.mob.setAshAttacking(false);
             this.lastAttack = AttackType.MELEE;
-            this.mob.tryAttack(target);
+            if (target.getWorld() instanceof ServerWorld serverWorld) {
+                this.mob.tryAttack(serverWorld, target);
+            }
         } else if (squaredDistance <= d &&
                 (this.lastAttack == AttackType.NONE && this.getAttackCd() <= 0) ||
                 (this.lastAttack == AttackType.MELEE && this.getAttackCd() <= 30) ||

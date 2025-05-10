@@ -62,8 +62,8 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
 
     public static DefaultAttributeContainer.Builder createBlackenedAttributes() {
         return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.19D)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6);
+                .add(EntityAttributes.MOVEMENT_SPEED, 0.19D)
+                .add(EntityAttributes.ATTACK_DAMAGE, 6);
     }
 
     @Override

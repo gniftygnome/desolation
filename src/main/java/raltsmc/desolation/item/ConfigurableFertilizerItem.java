@@ -26,7 +26,7 @@ public class ConfigurableFertilizerItem extends Item {
             if (!world.isClient) {
                 world.syncWorldEvent(2005,blockPos,0);
             }
-            return ActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         } else {
             return ActionResult.PASS;
         }

@@ -2,11 +2,13 @@ package raltsmc.desolation.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import raltsmc.desolation.registry.DesolationBlocks;
-import raltsmc.desolation.registry.DesolationBoatTypes;
+import raltsmc.desolation.registry.DesolationBoats;
 import raltsmc.desolation.tag.DesolationBlockTags;
 import raltsmc.desolation.tag.DesolationItemTags;
 
@@ -20,10 +22,10 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 	@Override
 	public void configure(RegistryWrapper.WrapperLookup registries) {
 		getOrCreateTagBuilder(ItemTags.BOATS)
-			.add(DesolationBoatTypes.CHARRED_BOAT);
+			.add(DesolationBoats.CHARRED_BOAT);
 
 		getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
-			.add(DesolationBoatTypes.CHARRED_CHEST_BOAT);
+			.add(DesolationBoats.CHARRED_CHEST_BOAT);
 
 		copy(BlockTags.LEAVES, ItemTags.LEAVES);
 
@@ -63,6 +65,12 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 		copy(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS);
 
+
 		copy(DesolationBlockTags.CHARRED_LOGS, DesolationItemTags.CHARRED_LOGS);
+
+
+		copy(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS);
+
+		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 	}
 }

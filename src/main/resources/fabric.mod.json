@@ -25,6 +25,9 @@
     "client": [
       "raltsmc.desolation.init.client.DesolationClient"
     ],
+    "terraform-boat-dfu": [
+      "raltsmc.desolation.init.helpers.DesolationBoatDfu"
+    ],
     "fabric-datagen": [
       "raltsmc.desolation.data.DesolationDatagen"
     ],
@@ -40,7 +43,7 @@
   "depends": {
     "fabricloader": ">=0.15.3",
     "fabric-api": "*",
-    "minecraft": ">=1.21 <1.22",
+    "minecraft": ">=1.21.2 <1.22",
     "trinkets": "*"
   }
 }

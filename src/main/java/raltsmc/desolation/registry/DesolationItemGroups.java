@@ -133,8 +133,8 @@ public class DesolationItemGroups {
         addGroupEntry(DesolationItems.AIR_FILTER, ItemGroups.TOOLS, TOOLS_WEARABLE);
 
         // Boats
-        addGroupEntry(DesolationBoatTypes.CHARRED_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
-        addGroupEntry(DesolationBoatTypes.CHARRED_CHEST_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
+        addGroupEntry(DesolationBoats.CHARRED_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
+        addGroupEntry(DesolationBoats.CHARRED_CHEST_BOAT, ItemGroups.TOOLS, TOOLS_BOAT);
 
         // Discs
         addGroupEntry(DesolationItems.MUSIC_DISC_ASHES, ItemGroups.TOOLS, TOOLS_DISC);

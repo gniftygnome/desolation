@@ -6,9 +6,9 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.MoveToTargetPosGoal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextParameterSet;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.context.LootWorldContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.world.ServerWorld;
@@ -71,19 +71,19 @@ public class DigAshGoal extends MoveToTargetPosGoal {
         } else {
             --tryingTime;
             if (++digTick >= DIG_DURATION_TICKS) {
-                if (!world.isClient) {
+                if (world instanceof ServerWorld serverWorld) {
                     assert world.getServer() != null;
 
                     world.breakBlock(targetPos, false, mob, 1);
                     world.syncWorldEvent(2001, targetPos, 0);
 
                     LootTable lootTable = world.getServer().getReloadableRegistries().getLootTable(DesolationLootTables.ASH_SCUTTLER_DIG);
-                    LootContextParameterSet parameterSet = new LootContextParameterSet.Builder((ServerWorld) world)
+                    LootWorldContext parameters = new LootWorldContext.Builder(serverWorld)
                             .add(LootContextParameters.ORIGIN, location)
                             .add(LootContextParameters.THIS_ENTITY, mob)
                             .build(LootContextTypes.GIFT);
 
-                    ObjectArrayList<ItemStack> list = lootTable.generateLoot(parameterSet);
+                    ObjectArrayList<ItemStack> list = lootTable.generateLoot(parameters);
                     for (ItemStack itemStack : list) {
                         ItemEntity itemEntity = new ItemEntity(world, location.getX(), location.getY(), location.getZ(), itemStack);
                         itemEntity.setToDefaultPickupDelay();

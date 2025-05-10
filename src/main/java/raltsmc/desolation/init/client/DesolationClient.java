@@ -24,6 +24,7 @@ import raltsmc.desolation.client.render.entity.BlackenedEntityRenderer;
 import raltsmc.desolation.client.render.entity.feature.TrinketRenderers;
 import raltsmc.desolation.client.render.entity.model.HeadTrinketModel;
 import raltsmc.desolation.registry.DesolationBlocks;
+import raltsmc.desolation.registry.DesolationBoats;
 import raltsmc.desolation.registry.DesolationEntities;
 import raltsmc.desolation.registry.DesolationParticles;
 
@@ -49,7 +50,7 @@ public class DesolationClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(HEAD_MASK_LAYER, HeadTrinketModel::createMaskData);
         EntityModelLayerRegistry.registerModelLayer(HEAD_GOGGLES_LAYER, HeadTrinketModel::createGogglesData);
 
-        TerraformBoatClientHelper.registerModelLayers(Identifier.of(Desolation.MOD_ID, "charred"), false);
+        TerraformBoatClientHelper.registerModelLayers(DesolationBoats.CHARRED);
 
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new TrinketRenderers());
 

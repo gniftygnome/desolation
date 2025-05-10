@@ -15,6 +15,7 @@ import net.minecraft.item.ShovelItem;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.FluidTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -26,8 +27,9 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
+import net.minecraft.world.tick.ScheduledTickView;
 import raltsmc.desolation.registry.DesolationParticles;
 import raltsmc.desolation.registry.DesolationSounds;
 
@@ -61,7 +63,7 @@ public class EmberBlock extends Block {
             world.setBlockState(pos, this.cooledState);
             world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 
-            return ActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         }
 
         return super.onUse(state, world, pos, player, hit);
@@ -69,14 +71,14 @@ public class EmberBlock extends Block {
 
     @Override
     public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!world.isClient && !entity.isFireImmune()) {
+        if (world instanceof ServerWorld serverWorld && !entity.isFireImmune()) {
             DamageSource hotFloor = world.getDamageSources().hotFloor();
 
-            if (entity instanceof LivingEntity && !entity.isInvulnerableTo(hotFloor)) {
-                entity.damage(hotFloor, 1.0F);
+            if (entity instanceof LivingEntity livingEntity && !livingEntity.isInvulnerableTo(serverWorld, hotFloor)) {
+                livingEntity.damage(serverWorld, hotFloor, 1.0F);
 
                 if (Math.random() > 0.9D) {
-                    entity.setFireTicks(120);
+                    livingEntity.setFireTicks(120);
                 }
             }
         }
@@ -152,7 +154,7 @@ public class EmberBlock extends Block {
                 if (coolsIn(blockState) && !blockState.isSideSolidFullSquare(world, pos, direction.getOpposite())) {
                     isTouchingWater = true;
                     break;
-                } else if (!blockState.isOpaqueFullCube(world, mutable)) {
+                } else if (!blockState.isOpaqueFullCube()) {
                     isSmothered = false;
                 }
             }
@@ -172,15 +174,17 @@ public class EmberBlock extends Block {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
+    public BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         CoolType coolType = coolsOnAnySide(world, pos);
+
         if (coolType != CoolType.NONE) {
-            if (!world.isClient() && coolType == CoolType.TOUCHED_WATER) {
-                world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1f, 1f);
+            if (world instanceof ServerWorld serverWorld && coolType == CoolType.TOUCHED_WATER) {
+                serverWorld.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 1f, 1f);
             }
+
             return this.cooledState;
-        } else {
-            return super.getStateForNeighborUpdate(state, direction, newState, world, pos, posFrom);
         }
+
+        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 }

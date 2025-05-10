@@ -8,8 +8,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -24,7 +24,7 @@ public class AshItem extends ConfigurableFertilizerItem {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         Vec3d target = user.getPos()
                 .add(new Vec3d (0, user.getEyeY() - user.getY(), 0).multiply(0.75))
@@ -35,7 +35,8 @@ public class AshItem extends ConfigurableFertilizerItem {
             areaEffectCloudEntity.setParticleType(ParticleTypes.WHITE_ASH);
             areaEffectCloudEntity.setPotionContents(new PotionContentsComponent(Optional.empty(),
                     Optional.of(0xcccccc),
-                    List.of(new StatusEffectInstance(StatusEffects.BLINDNESS, 40, 1))));
+                    List.of(new StatusEffectInstance(StatusEffects.BLINDNESS, 40, 1)),
+                    Optional.empty()));
             areaEffectCloudEntity.setRadius(0.5F);
             areaEffectCloudEntity.setRadiusOnUse(0.5F);
             areaEffectCloudEntity.setRadiusGrowth(0.03F);
@@ -49,6 +50,6 @@ public class AshItem extends ConfigurableFertilizerItem {
             itemStack.decrement(1);
         }
 
-        return TypedActionResult.success(itemStack, world.isClient());
+        return ActionResult.SUCCESS.withNewHandStack(itemStack);
     }
 }

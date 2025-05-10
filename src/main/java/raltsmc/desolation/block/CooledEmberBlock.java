@@ -33,14 +33,14 @@ public class CooledEmberBlock extends Block {
             world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             stack.damage(1, player, LivingEntity.getSlotForHand(hand));
 
-            return ActionResult.success(world.isClient());
+            return ActionResult.SUCCESS;
         } else if (stack.getItem() == Items.FIRE_CHARGE) {
             ((FireChargeItem) Items.FIRE_CHARGE).playUseSound(world, pos);
             world.setBlockState(pos, DesolationBlocks.EMBER_BLOCK.getDefaultState());
             world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
             stack.decrement(1);
 
-            return ActionResult.success(world.isClient);
+            return ActionResult.SUCCESS;
         }
 
         return super.onUse(state, world, pos, player, hit);
