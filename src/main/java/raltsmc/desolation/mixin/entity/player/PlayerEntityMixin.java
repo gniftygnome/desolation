@@ -51,7 +51,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         if (!world.isClient) {
             Optional<TrinketComponent> component = TrinketsApi.getTrinketComponent(this);
-            Identifier biomeId = world.getRegistryManager().get(RegistryKeys.BIOME).getId(world.getBiome(this.getBlockPos()).value());
+            Identifier biomeId = world.getRegistryManager().getOrThrow(RegistryKeys.BIOME).getId(world.getBiome(this.getBlockPos()).value());
 
             if (this.getY() >= world.getSeaLevel() - 10 && biomeId != null && Desolation.MOD_ID.equals(biomeId.getNamespace())) {
                 if (component.isEmpty() || !component.get().isEquipped(DesolationItems.MASK)) {

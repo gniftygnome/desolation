@@ -33,7 +33,6 @@ public final class DesolationItems {
     public static BlockItem STRIPPED_CHARRED_WOOD;
     public static BlockItem CHARRED_PLANKS;
     public static BlockItem CHARRED_SAPLING;
-    public static BlockItem CINDERFRUIT_PLANT;
 
     public static BlockItem CHARRED_SLAB;
     public static BlockItem CHARRED_STAIRS;
@@ -91,7 +90,6 @@ public final class DesolationItems {
         STRIPPED_CHARRED_WOOD = DesolationRegistries.registerBlockItem("stripped_charred_wood", DesolationBlocks.STRIPPED_CHARRED_WOOD);
         CHARRED_PLANKS = DesolationRegistries.registerBlockItem("charred_planks", DesolationBlocks.CHARRED_PLANKS);
         CHARRED_SAPLING = DesolationRegistries.registerBlockItem("charred_sapling", DesolationBlocks.CHARRED_SAPLING);
-        CINDERFRUIT_PLANT = DesolationRegistries.registerBlockItem("cinderfruit_plant", DesolationBlocks.CINDERFRUIT_PLANT);
 
         CHARRED_SLAB = DesolationRegistries.registerBlockItem("charred_slab", DesolationBlocks.CHARRED_SLAB);
         CHARRED_STAIRS = DesolationRegistries.registerBlockItem("charred_stairs", DesolationBlocks.CHARRED_STAIRS);
@@ -102,8 +100,8 @@ public final class DesolationItems {
         CHARRED_BUTTON = DesolationRegistries.registerBlockItem("charred_button", DesolationBlocks.CHARRED_BUTTON);
         CHARRED_DOOR = DesolationRegistries.registerBlockItem("charred_door", DesolationBlocks.CHARRED_DOOR);
 
-        CHARRED_SIGN = DesolationRegistries.register("charred_sign", settings -> new SignItem(DesolationBlocks.CHARRED_SIGN, DesolationBlocks.CHARRED_WALL_SIGN, settings), new Item.Settings().maxCount(16));
-        CHARRED_HANGING_SIGN = DesolationRegistries.register("charred_hanging_sign", settings -> new HangingSignItem(DesolationBlocks.CHARRED_HANGING_SIGN, DesolationBlocks.CHARRED_WALL_HANGING_SIGN, settings), new Item.Settings().maxCount(16));
+        CHARRED_SIGN = DesolationRegistries.register("charred_sign", settings -> new SignItem(DesolationBlocks.CHARRED_SIGN, DesolationBlocks.CHARRED_WALL_SIGN, settings), new Item.Settings().maxCount(16).useBlockPrefixedTranslationKey());
+        CHARRED_HANGING_SIGN = DesolationRegistries.register("charred_hanging_sign", settings -> new HangingSignItem(DesolationBlocks.CHARRED_HANGING_SIGN, DesolationBlocks.CHARRED_WALL_HANGING_SIGN, settings), new Item.Settings().maxCount(16).useBlockPrefixedTranslationKey());
 
 
         CHARCOAL_BIT = DesolationRegistries.register("charcoal_bit", Item::new, new Item.Settings());
@@ -131,9 +129,9 @@ public final class DesolationItems {
 
         MUSIC_DISC_ASHES = DesolationRegistries.register("music_disc_ashes", Item::new, new Item.Settings().maxCount(1).rarity(Rarity.RARE).jukeboxPlayable(DesolationJukeboxSongs.ASHES));
         SPAWN_EGG_ASH_SCUTTLER = DesolationRegistries.register("ash_scuttler_spawn_egg", settings ->
-                new SpawnEggItem(DesolationEntities.ASH_SCUTTLER, 0x111111, 0xff7b00, settings), new Item.Settings());
+                new SpawnEggItem(DesolationEntities.ASH_SCUTTLER, settings), new Item.Settings());
         SPAWN_EGG_BLACKENED = DesolationRegistries.register("blackened_spawn_egg", settings ->
-                new SpawnEggItem(DesolationEntities.BLACKENED, 0x0a0a0a, 0xcf4b00, settings), new Item.Settings());
+                new SpawnEggItem(DesolationEntities.BLACKENED, settings), new Item.Settings());
 
 
         addCompostables();

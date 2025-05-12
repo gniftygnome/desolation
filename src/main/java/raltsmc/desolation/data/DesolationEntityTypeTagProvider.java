@@ -21,4 +21,9 @@ public class DesolationEntityTypeTagProvider extends FabricTagProvider.EntityTyp
 		getOrCreateTagBuilder(EntityTypeTags.SKELETONS)
 			.add(DesolationEntities.BLACKENED);
 	}
+
+	@Override
+	public String getName() {
+		return "Desolation Entity Type Tags";
+	}
 }

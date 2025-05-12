@@ -3,22 +3,27 @@ package raltsmc.desolation.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import raltsmc.desolation.entity.ai.goal.DigAshGoal;
 import raltsmc.desolation.registry.DesolationItems;
 import software.bernie.geckolib.animatable.GeoAnimatable;
@@ -27,7 +32,7 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class AshScuttlerEntity extends PathAwareEntity implements GeoEntity {
+public class AshScuttlerEntity extends AnimalEntity implements GeoEntity {
     private static final TrackedData<Boolean> SEARCHING = DataTracker.registerData(AshScuttlerEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
     private static final Ingredient ATTRACTING_INGREDIENT = Ingredient.ofItems(DesolationItems.CINDERFRUIT);
 
@@ -35,7 +40,7 @@ public class AshScuttlerEntity extends PathAwareEntity implements GeoEntity {
     private static final RawAnimation HEAD_ANIM = RawAnimation.begin().thenLoop("animation.desolation.ash_scuttler_head");
     private static final RawAnimation WALK_ANIM = RawAnimation.begin().thenPlay("animation.desolation.ash_scuttler_walk");
 
-    public AshScuttlerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
+    public AshScuttlerEntity(EntityType<? extends AnimalEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -53,6 +58,17 @@ public class AshScuttlerEntity extends PathAwareEntity implements GeoEntity {
     protected void initDataTracker(DataTracker.Builder builder) {
         super.initDataTracker(builder);
         builder.add(SEARCHING, false);
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
+        return null;
     }
 
     @Override

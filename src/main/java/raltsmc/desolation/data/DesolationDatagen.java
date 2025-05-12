@@ -15,6 +15,7 @@ public class DesolationDatagen implements DataGeneratorEntrypoint {
 		DesolationBlockTagProvider blockTagProvider = pack.addProvider(DesolationBlockTagProvider::new);
 		pack.addProvider((output, registries) -> new DesolationItemTagProvider(output, registries, blockTagProvider));
 		pack.addProvider(DesolationEntityTypeTagProvider::new);
+		pack.addProvider(DesolationModelProvider::new);
 		pack.addProvider(DesolationRecipeProvider::new);
 	}
 

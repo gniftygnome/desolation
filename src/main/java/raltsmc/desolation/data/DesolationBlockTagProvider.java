@@ -109,4 +109,9 @@ public class DesolationBlockTagProvider extends FabricTagProvider.BlockTagProvid
 			.add(DesolationBlocks.STRIPPED_CHARRED_WOOD);
 
 	}
+
+	@Override
+	public String getName() {
+		return "Desolation Block Tags";
+	}
 }

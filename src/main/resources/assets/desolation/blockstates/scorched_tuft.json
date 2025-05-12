@@ -1,9 +1,0 @@
-{
-  "variants": {
-    "": [
-      { "model": "desolation:block/scorched_tuft" },
-      { "model": "desolation:block/scorched_tuft_medium" },
-      { "model": "desolation:block/scorched_tuft_large" }
-    ]
-  }
-}

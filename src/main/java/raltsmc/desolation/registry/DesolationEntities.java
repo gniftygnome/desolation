@@ -6,6 +6,8 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.Heightmap;
 import raltsmc.desolation.Desolation;
@@ -19,7 +21,7 @@ public final class DesolationEntities {
             EntityType.Builder.create(AshScuttlerEntity::new, SpawnGroup.AMBIENT)
                     .dimensions(0.56f,0.32f)
                     .makeFireImmune()
-                    .build()
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(Desolation.MOD_ID, "ash_scuttler")))
     );
 
     public static final EntityType<BlackenedEntity> BLACKENED = Registry.register(
@@ -28,7 +30,7 @@ public final class DesolationEntities {
             EntityType.Builder.create(BlackenedEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.75f,2f)
                     .makeFireImmune()
-                    .build()
+                    .build(RegistryKey.of(RegistryKeys.ENTITY_TYPE, Identifier.of(Desolation.MOD_ID, "blackened")))
     );
 
     @SuppressWarnings("UnnecessaryReturnStatement")
@@ -37,7 +39,7 @@ public final class DesolationEntities {
     }
 
     static void init() {
-        FabricDefaultAttributeRegistry.register(ASH_SCUTTLER, AshScuttlerEntity.createMobAttributes());
+        FabricDefaultAttributeRegistry.register(ASH_SCUTTLER, AshScuttlerEntity.createAnimalAttributes());
         FabricDefaultAttributeRegistry.register(BLACKENED, BlackenedEntity.createBlackenedAttributes());
 
         SpawnRestriction.register(ASH_SCUTTLER, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);

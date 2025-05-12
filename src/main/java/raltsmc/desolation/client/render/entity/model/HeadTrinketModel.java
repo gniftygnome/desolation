@@ -1,15 +1,14 @@
 package raltsmc.desolation.client.render.entity.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
 import net.minecraft.util.Identifier;
 
 import java.util.function.Function;
 
-public class HeadTrinketModel extends BipedEntityModel<LivingEntity> {
+public class HeadTrinketModel extends BipedEntityModel<BipedEntityRenderState> {
     public HeadTrinketModel(ModelPart part, Function<Identifier, RenderLayer> renderLayerFactory) {
         super(part, renderLayerFactory);
     }
@@ -19,13 +18,8 @@ public class HeadTrinketModel extends BipedEntityModel<LivingEntity> {
     }
 
     @Override
-    protected Iterable<ModelPart> getHeadParts() {
-        return ImmutableList.of(head);
-    }
-
-    @Override
-    protected Iterable<ModelPart> getBodyParts() {
-        return ImmutableList.of();
+    public ModelPart getHead() {
+        return head;
     }
 
     public static ModelData createEmptyHat(ModelPartBuilder head) {

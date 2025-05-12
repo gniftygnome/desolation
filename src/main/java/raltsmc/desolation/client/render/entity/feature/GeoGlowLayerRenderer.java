@@ -6,6 +6,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.Nullable;
 import raltsmc.desolation.Desolation;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -21,9 +22,9 @@ public class GeoGlowLayerRenderer<T extends Entity & GeoAnimatable> extends GeoR
     }
 
     @Override
-    public void render(MatrixStack poseStack, T animatable, BakedGeoModel bakedModel, RenderLayer renderType, VertexConsumerProvider bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+    public void render(MatrixStack poseStack, T animatable, BakedGeoModel bakedModel, @Nullable RenderLayer renderType, VertexConsumerProvider bufferSource, @Nullable VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay, int renderColor) {
         VertexConsumer vertexConsumer = bufferSource.getBuffer(this.getEyesTexture());
-        super.render(poseStack, animatable, bakedModel, this.getEyesTexture(), bufferSource, vertexConsumer, partialTick, 15728640, packedOverlay);
+        super.render(poseStack, animatable, bakedModel, this.getEyesTexture(), bufferSource, vertexConsumer, partialTick, 15728640, packedOverlay, renderColor);
     }
 
     public RenderLayer getEyesTexture() {

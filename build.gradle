@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.7.+'
+	id 'fabric-loom' version '1.9.+'
 	id 'maven-publish'
 }
 
@@ -29,6 +29,10 @@ repositories {
 		name = "Ladysnake Libs"
 		url = "https://maven.ladysnake.org/releases"
 	}
+	maven {
+		name = "Gnomecraft"
+		url = "https://maven.gnomecraft.net/releases"
+	}
 }
 
 dependencies {
@@ -45,8 +49,7 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 
-//	include(modApi("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"))
-	include(modApi("software.bernie.geckolib:geckolib-fabric-1.21.3:${project.geckolib_version}"))
+	include(modApi("software.bernie.geckolib:geckolib-fabric-${project.minecraft_version}:${project.geckolib_version}"))
 
 	include(modApi("com.terraformersmc:biolith-fabric:${biolith_version}"))
 
@@ -55,7 +58,9 @@ dependencies {
 
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-	modImplementation "dev.emi:trinkets:${project.trinkets_version}"
+	// TODO: Temporarily included until it's available on CF and MR
+	//modImplementation "dev.emi:trinkets:${project.trinkets_version}"
+	include(modApi("dev.emi:trinkets:${project.trinkets_version}"))
 
 	//modRuntime "me.shedaniel:RoughlyEnoughItems:5.8.9"
 	//modRuntime "grondag:canvas-mc116:1.0.1267"
@@ -87,27 +92,11 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 loom {
 	accessWidenerPath = file("src/main/resources/desolation.accesswidener")
-
-	runs {
-		datagen {
-			inherit server
-
-			name = "Data Generation"
-			runDir = "build/datagen"
-
-			vmArg "-Dfabric-api.datagen"
-			vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-		}
-	}
 }
 
-sourceSets {
-	main {
-		resources {
-			srcDirs += [
-					"src/main/generated"
-			]
-		}
+fabricApi {
+	configureDataGeneration {
+		client = true
 	}
 }
 

@@ -73,4 +73,9 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 		copy(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOODS);
 	}
+
+	@Override
+	public String getName() {
+		return "Desolation Item Tags";
+	}
 }

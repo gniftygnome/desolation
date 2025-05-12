@@ -61,4 +61,9 @@ public class DesolationBlockLootTableProvider extends FabricBlockLootTableProvid
 		addDrop(DesolationBlocks.STRIPPED_CHARRED_LOG);
 		addDrop(DesolationBlocks.STRIPPED_CHARRED_WOOD);
 	}
+
+	@Override
+	public String getName() {
+		return "Desolation Block Loot Tables";
+	}
 }

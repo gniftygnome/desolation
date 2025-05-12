@@ -37,7 +37,7 @@ public class DesolationDynamicRegistryProvider extends FabricDynamicRegistryProv
 
 	@Override
 	public String getName() {
-		return "Desolation";
+		return "Desolation Dynamic Registries";
 	}
 
 	/**

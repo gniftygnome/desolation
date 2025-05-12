@@ -12,9 +12,9 @@ import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 
 public class DesolationPotions {
-    public static final Potion CINDER_SOUL = register("cinder_soul", new Potion(new StatusEffectInstance(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL), 1200)));
+    public static final Potion CINDER_SOUL = register("cinder_soul", new Potion("cinder_soul", new StatusEffectInstance(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL), 1200)));
     public static final Potion LONG_CINDER_SOUL = register("long_cinder_soul", new Potion("cinder_soul", new StatusEffectInstance(Registries.STATUS_EFFECT.getEntry(DesolationStatusEffects.CINDER_SOUL), 3600)));
-    public static final Potion BLINDNESS = register("blindness", new Potion(new StatusEffectInstance(StatusEffects.BLINDNESS, 1200)));
+    public static final Potion BLINDNESS = register("blindness", new Potion("blindness", new StatusEffectInstance(StatusEffects.BLINDNESS, 1200)));
     public static final Potion LONG_BLINDNESS = register("long_blindness", new Potion("blindness", new StatusEffectInstance(StatusEffects.BLINDNESS, 3600)));
 
     @SuppressWarnings("UnnecessaryReturnStatement")

@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.BlockStateComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -43,8 +45,12 @@ public class CinderfruitPlantBlock extends PlantBlock implements Fertilizable {
 
     @Override
     @Environment(EnvType.CLIENT)
-    public ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state) {
-        return new ItemStack(DesolationItems.CINDERFRUIT);
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        ItemStack pickStack = super.getPickStack(world, pos, state, includeData);
+        if (includeData) {
+            pickStack.set(DataComponentTypes.BLOCK_STATE, BlockStateComponent.DEFAULT.with(AGE, state.get(AGE)));
+        }
+        return pickStack;
     }
 
     @Override

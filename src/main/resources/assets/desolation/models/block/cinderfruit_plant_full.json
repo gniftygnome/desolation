@@ -1,6 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "desolation:block/cinderfruit_full"
-  }
-}

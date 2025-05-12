@@ -8,22 +8,23 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.render.entity.state.BipedEntityRenderState;
+import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import raltsmc.desolation.Desolation;
 
 public class HeadTrinketRenderer implements TrinketRenderer {
     private final Identifier texture;
-    private final BipedEntityModel<LivingEntity> model;
+    private final BipedEntityModel<BipedEntityRenderState> model;
 
-    public HeadTrinketRenderer(String path, BipedEntityModel<LivingEntity> model) {
+    public HeadTrinketRenderer(String path, BipedEntityModel<BipedEntityRenderState> model) {
         this(Identifier.of(Desolation.MOD_ID, path), model);
     }
 
-    public HeadTrinketRenderer(Identifier texture, BipedEntityModel<LivingEntity> model) {
+    public HeadTrinketRenderer(Identifier texture, BipedEntityModel<BipedEntityRenderState> model) {
         this.texture = texture;
         this.model = model;
     }
@@ -32,20 +33,20 @@ public class HeadTrinketRenderer implements TrinketRenderer {
         return texture;
     }
 
-    protected BipedEntityModel<LivingEntity> getModel() {
+    protected BipedEntityModel<BipedEntityRenderState> getModel() {
         return model;
     }
 
     @Override
-    public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntity> contextModel,
-                       MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity,
-                       float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw,
-                       float headPitch) {
-        BipedEntityModel<LivingEntity> model = getModel();
+    public void render(ItemStack stack, SlotReference slotReference, EntityModel<? extends LivingEntityRenderState> contextModel, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntityRenderState renderState, float limbAngle, float limbDistance) {
+        if (!(contextModel instanceof BipedEntityModel entity && renderState instanceof BipedEntityRenderState state)) {
+            return;
+        }
 
-        model.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);
-        model.animateModel(entity, limbAngle, limbDistance, tickDelta);
-        TrinketRenderer.followBodyRotations(entity, model);
+        BipedEntityModel<BipedEntityRenderState> model = getModel();
+
+        model.setAngles(state);
+        TrinketRenderer.followBodyRotations(contextModel, model);
         render(matrices, vertexConsumers, light);
     }
 

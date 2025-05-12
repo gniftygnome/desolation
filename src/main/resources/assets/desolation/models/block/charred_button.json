@@ -1,6 +1,0 @@
-{
-  "parent": "block/button",
-  "textures": {
-    "texture": "desolation:block/charred_planks"
-  }
-}

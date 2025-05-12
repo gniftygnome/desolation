@@ -69,4 +69,9 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 	}
+
+	@Override
+	public String getName() {
+		return "Desolation Biome Tags";
+	}
 }

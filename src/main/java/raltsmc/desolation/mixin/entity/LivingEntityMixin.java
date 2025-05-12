@@ -5,6 +5,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.world.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,7 +23,7 @@ public abstract class LivingEntityMixin {
     private Map<StatusEffect, StatusEffectInstance> activeStatusEffects;
 
     @Inject(method = "damage", at = @At("HEAD"), cancellable = true)
-    public void desolation$negateDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
+    public void desolation$negateDamage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> info) {
         if (source.getTypeRegistryEntry().isIn(DamageTypeTags.IS_FIRE) && this.activeStatusEffects.containsKey(DesolationStatusEffects.CINDER_SOUL)) {
             info.setReturnValue(false);
         }
