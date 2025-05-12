@@ -24,7 +24,7 @@ public class AshTinkerBaseGenerator extends SimpleStructurePiece {
 
     public AshTinkerBaseGenerator(StructureContext context, NbtCompound nbt) {
         super(DesolationStructures.ASH_TINKER_BASE_PIECE, nbt, context.structureTemplateManager(),
-                (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot")))));
+                (identifier1 -> createPlacementData(BlockRotation.valueOf(nbt.getString("Rot", "none")))));
     }
 
     private static StructurePlacementData createPlacementData(BlockRotation rotation) {

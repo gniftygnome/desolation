@@ -113,7 +113,7 @@ public class DigAshGoal extends MoveToTargetPosGoal {
         }
         if (world.isClient) {
             double pVel = world.random.nextGaussian() * 0.02D;
-            world.addParticle(ParticleTypes.SMOKE, mob.getX(), mob.getY(), mob.getZ(), pVel, pVel, pVel);
+            world.addParticleClient(ParticleTypes.SMOKE, mob.getX(), mob.getY(), mob.getZ(), pVel, pVel, pVel);
         } else {
             ItemScatterer.spawn(world, mob.getX(), mob.getY(), mob.getZ(),
                     new ItemStack(DesolationItems.CINDERFRUIT));

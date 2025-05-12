@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import raltsmc.desolation.registry.DesolationBlockFamilies;
@@ -23,8 +24,8 @@ public class DesolationModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         // Charred wood type
         generator.registerCubeAllModelTexturePool(DesolationBlockFamilies.CHARRED.getBaseBlock()).family(DesolationBlockFamilies.CHARRED);
-        generator.registerLog(DesolationBlocks.CHARRED_LOG).log(DesolationBlocks.CHARRED_LOG).wood(DesolationBlocks.CHARRED_WOOD);
-        generator.registerLog(DesolationBlocks.STRIPPED_CHARRED_LOG).log(DesolationBlocks.STRIPPED_CHARRED_LOG).wood(DesolationBlocks.STRIPPED_CHARRED_WOOD);
+        generator.createLogTexturePool(DesolationBlocks.CHARRED_LOG).log(DesolationBlocks.CHARRED_LOG).wood(DesolationBlocks.CHARRED_WOOD);
+        generator.createLogTexturePool(DesolationBlocks.STRIPPED_CHARRED_LOG).log(DesolationBlocks.STRIPPED_CHARRED_LOG).wood(DesolationBlocks.STRIPPED_CHARRED_WOOD);
         generator.registerHangingSign(DesolationBlockFamilies.CHARRED.getBaseBlock(), DesolationBlocks.CHARRED_HANGING_SIGN, DesolationBlocks.CHARRED_WALL_HANGING_SIGN);
         generator.registerFlowerPotPlantAndItem(DesolationBlocks.CHARRED_SAPLING, DesolationBlocks.POTTED_CHARRED_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
         generator.registerSingleton(DesolationBlocks.CHARRED_BRANCHES, TexturedModel.LEAVES);
@@ -41,17 +42,17 @@ public class DesolationModelProvider extends FabricModelProvider {
         // We have to make models inheriting from vanilla's hand-rolled snow models...
         TextureMap ashTexture = TextureMap.all(DesolationBlocks.ASH_BLOCK);
         Identifier ashModelId = Models.CUBE_ALL.upload(DesolationBlocks.ASH_BLOCK, ashTexture, generator.modelCollector);
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(DesolationBlocks.ASH_LAYER_BLOCK).coordinate(
-                BlockStateVariantMap.create(Properties.LAYERS).register(height -> BlockStateVariant.create()
-                        .put(VariantSettings.MODEL,
-                                height < 8 ?
-                                        new Model(Optional.of(ModelIds.getBlockSubModelId(Blocks.SNOW, "_height" + height * 2)),
-                                                Optional.empty(), TextureKey.PARTICLE, TextureKey.TEXTURE)
-                                                .upload(ModelIds.getBlockSubModelId(DesolationBlocks.ASH_LAYER_BLOCK, "_height" + height * 2),
-                                                        ashTexture, generator.modelCollector) :
-                                        ashModelId))));
+        WeightedVariant ashModel = BlockStateModelGenerator.createWeightedVariant(ashModelId);
+        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(DesolationBlocks.ASH_LAYER_BLOCK).with(
+                BlockStateVariantMap.models(Properties.LAYERS).generate(height ->
+                        BlockStateModelGenerator.createWeightedVariant(height < 8 ?
+                                new Model(Optional.of(ModelIds.getBlockSubModelId(Blocks.SNOW, "_height" + height * 2)),
+                                        Optional.empty(), TextureKey.PARTICLE, TextureKey.TEXTURE)
+                                        .upload(ModelIds.getBlockSubModelId(DesolationBlocks.ASH_LAYER_BLOCK, "_height" + height * 2),
+                                                ashTexture, generator.modelCollector) :
+                                ashModelId))));
         generator.registerParentedItemModel(DesolationBlocks.ASH_LAYER_BLOCK, ModelIds.getBlockSubModelId(DesolationBlocks.ASH_LAYER_BLOCK, "_height2"));
-        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(DesolationBlocks.ASH_BLOCK, ashModelId));
+        generator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(DesolationBlocks.ASH_BLOCK, ashModel));
         this.registerBlockItemModel(generator, DesolationBlocks.ASH_BLOCK);
 
         // Charred Soil is randomly selected from two different textures
@@ -59,18 +60,20 @@ public class DesolationModelProvider extends FabricModelProvider {
         TextureMap charredSoilVariant2Texture = TextureMap.of(TextureKey.ALL, TextureMap.getSubId(DesolationBlocks.CHARRED_SOIL, "_var2"));
         Identifier charredSoilVariant1 = Models.CUBE_ALL.upload(ModelIds.getBlockSubModelId(DesolationBlocks.CHARRED_SOIL, "_var1"), charredSoilVariant1Texture, generator.modelCollector);
         Identifier charredSoilVariant2 = Models.CUBE_ALL.upload(ModelIds.getBlockSubModelId(DesolationBlocks.CHARRED_SOIL, "_var2"), charredSoilVariant2Texture, generator.modelCollector);
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(DesolationBlocks.CHARRED_SOIL,
-                BlockStateVariant.create().put(VariantSettings.MODEL, charredSoilVariant1),
-                BlockStateVariant.create().put(VariantSettings.MODEL, charredSoilVariant2)
+        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(DesolationBlocks.CHARRED_SOIL,
+                BlockStateModelGenerator.createWeightedVariant(
+                        BlockStateModelGenerator.createModelVariant(charredSoilVariant1),
+                        BlockStateModelGenerator.createModelVariant(charredSoilVariant2)
+                )
         ));
         generator.registerItemModel(DesolationItems.CHARRED_SOIL,
                 ModelIds.getBlockSubModelId(DesolationBlocks.CHARRED_SOIL, "_var1"));
 
         // Adapted copy of BlockStateModelGenerator.registerSweetBerryBush for Cinder Fruit
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(DesolationBlocks.CINDERFRUIT_PLANT)
-                .coordinate(BlockStateVariantMap.create(Properties.AGE_1).register(stage -> BlockStateVariant.create()
-                        .put(VariantSettings.MODEL, generator.createSubModel(DesolationBlocks.CINDERFRUIT_PLANT,
-                                "_age" + stage, Models.CROSS, TextureMap::cross)))));
+        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(DesolationBlocks.CINDERFRUIT_PLANT)
+                .with(BlockStateVariantMap.models(Properties.AGE_1).generate(age -> BlockStateModelGenerator
+                        .createWeightedVariant(generator.createSubModel(DesolationBlocks.CINDERFRUIT_PLANT,
+                                "_age" + age, Models.CROSS, TextureMap::cross)))));
 
         // Scorched Tuft is an untinted cross randomly selected from three different size models
         TextureMap tuftSmallTexture = TextureMap.of(TextureKey.CROSS, TextureMap.getId(DesolationBlocks.SCORCHED_TUFT));
@@ -79,21 +82,19 @@ public class DesolationModelProvider extends FabricModelProvider {
         Identifier tuftSmallModel = Models.TINTED_CROSS.upload(ModelIds.getBlockModelId(DesolationBlocks.SCORCHED_TUFT), tuftSmallTexture, generator.modelCollector);
         Identifier tuftMediumModel = Models.TINTED_CROSS.upload(ModelIds.getBlockSubModelId(DesolationBlocks.SCORCHED_TUFT, "_medium"), tuftMediumTexture, generator.modelCollector);
         Identifier tuftLargeModel = Models.TINTED_CROSS.upload(ModelIds.getBlockSubModelId(DesolationBlocks.SCORCHED_TUFT, "_large"), tuftLargeTexture, generator.modelCollector);
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(DesolationBlocks.SCORCHED_TUFT,
-                BlockStateVariant.create().put(VariantSettings.MODEL, tuftSmallModel),
-                BlockStateVariant.create().put(VariantSettings.MODEL, tuftMediumModel),
-                BlockStateVariant.create().put(VariantSettings.MODEL, tuftLargeModel)
+        generator.blockStateCollector.accept(VariantsBlockModelDefinitionCreator.of(DesolationBlocks.SCORCHED_TUFT,
+                BlockStateModelGenerator.createWeightedVariant(
+                        BlockStateModelGenerator.createModelVariant(tuftSmallModel),
+                        BlockStateModelGenerator.createModelVariant(tuftMediumModel),
+                        BlockStateModelGenerator.createModelVariant(tuftLargeModel)
+                )
         ));
         this.registerBlockItemModel(generator, DesolationBlocks.SCORCHED_TUFT);
 
         // Item models missed by vanilla code
         this.registerBlockItemModel(generator, DesolationBlocks.CHARRED_FENCE_GATE);
-        this.registerBlockItemModel(generator, DesolationBlocks.CHARRED_LOG);
         this.registerBlockItemModel(generator, DesolationBlocks.CHARRED_PLANKS);
         this.registerBlockItemModel(generator, DesolationBlocks.CHARRED_PRESSURE_PLATE);
-        this.registerBlockItemModel(generator, DesolationBlocks.CHARRED_WOOD);
-        this.registerBlockItemModel(generator, DesolationBlocks.STRIPPED_CHARRED_LOG);
-        this.registerBlockItemModel(generator, DesolationBlocks.STRIPPED_CHARRED_WOOD);
     }
 
     @Override
@@ -103,8 +104,8 @@ public class DesolationModelProvider extends FabricModelProvider {
         generator.register(DesolationBoats.CHARRED_CHEST_BOAT, Models.GENERATED);
 
         // Spawn eggs
-        generator.registerSpawnEgg(DesolationItems.SPAWN_EGG_ASH_SCUTTLER, 0x111111, 0xff7b00);
-        generator.registerSpawnEgg(DesolationItems.SPAWN_EGG_BLACKENED, 0x0a0a0a, 0xcf4b00);
+        generator.register(DesolationItems.SPAWN_EGG_ASH_SCUTTLER, Models.GENERATED);
+        generator.register(DesolationItems.SPAWN_EGG_BLACKENED, Models.GENERATED);
 
         // Misc.
         generator.register(DesolationItems.ACTIVATED_CHARCOAL, Models.GENERATED);

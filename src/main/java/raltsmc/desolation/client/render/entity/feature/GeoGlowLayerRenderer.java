@@ -10,21 +10,24 @@ import org.jetbrains.annotations.Nullable;
 import raltsmc.desolation.Desolation;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.renderer.GeoRenderer;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.renderer.base.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
-public class GeoGlowLayerRenderer<T extends Entity & GeoAnimatable> extends GeoRenderLayer<T> {
+public class GeoGlowLayerRenderer<T extends Entity & GeoAnimatable, R extends GeoRenderState> extends GeoRenderLayer<T, Void, R> {
     private final RenderLayer skin;
 
-    public GeoGlowLayerRenderer(GeoRenderer<T> entityRendererIn, String texture) {
+    public GeoGlowLayerRenderer(GeoRenderer<T, Void, R> entityRendererIn, String texture) {
         super(entityRendererIn);
+
         this.skin = RenderLayer.getEyes(Identifier.of(Desolation.MOD_ID, texture));
     }
 
     @Override
-    public void render(MatrixStack poseStack, T animatable, BakedGeoModel bakedModel, @Nullable RenderLayer renderType, VertexConsumerProvider bufferSource, @Nullable VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay, int renderColor) {
+    public void render(R renderState, MatrixStack poseStack, BakedGeoModel bakedModel, @Nullable RenderLayer renderType, VertexConsumerProvider bufferSource, @Nullable VertexConsumer buffer, int packedLight, int packedOverlay, int renderColor) {
         VertexConsumer vertexConsumer = bufferSource.getBuffer(this.getEyesTexture());
-        super.render(poseStack, animatable, bakedModel, this.getEyesTexture(), bufferSource, vertexConsumer, partialTick, 15728640, packedOverlay, renderColor);
+
+        super.render(renderState, poseStack, bakedModel, this.getEyesTexture(), bufferSource, vertexConsumer, 15728640, packedOverlay, renderColor);
     }
 
     public RenderLayer getEyesTexture() {

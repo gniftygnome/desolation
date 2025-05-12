@@ -4,9 +4,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.UntintedParticleLeavesBlock;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -22,7 +24,7 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class CharredBranchBlock extends LeavesBlock {
+public class CharredBranchBlock extends UntintedParticleLeavesBlock {
     // This has to be at least the maximum placeable taxicab distance in CharredFoliagePlacer.generate()
     // ... as configured in the placer configurations of DesolationConfiguredFeatures
     public static final int SUPPORTED_MAX_TAXICAB_DISTANCE = 13;
@@ -36,7 +38,7 @@ public class CharredBranchBlock extends LeavesBlock {
     public static final int DELAY_SPREAD = 100;
 
     public CharredBranchBlock(Settings settings) {
-        super(settings);
+        super(0.01f, ParticleTypes.ASH, settings);
         this.setDefaultState(this.stateManager.getDefaultState()
                 .with(LeavesBlock.DISTANCE, DISTANCE_SUPPORTED)
                 .with(LeavesBlock.PERSISTENT, false)

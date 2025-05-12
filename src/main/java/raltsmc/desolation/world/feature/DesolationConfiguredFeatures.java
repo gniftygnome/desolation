@@ -7,7 +7,7 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.blockpredicate.BlockPredicate;
@@ -118,7 +118,7 @@ public final class DesolationConfiguredFeatures {
 
         public static final RandomPatchFeatureConfig ASH_LAYER_CONFIG = new RandomPatchFeatureConfig(128, 11, 3,
                 PlacedFeatures.createEntry(Feature.SIMPLE_BLOCK, new SimpleBlockFeatureConfig(
-                        new WeightedBlockStateProvider(new DataPool.Builder<BlockState>()
+                        new WeightedBlockStateProvider(new Pool.Builder<BlockState>()
                                 .add(DesolationBlocks.ASH_LAYER_BLOCK.getDefaultState().with(LAYERS, 1), 30)
                                 .add(DesolationBlocks.ASH_LAYER_BLOCK.getDefaultState().with(LAYERS, 2), 20)
                                 .add(DesolationBlocks.ASH_LAYER_BLOCK.getDefaultState().with(LAYERS, 3), 15)
@@ -131,7 +131,7 @@ public final class DesolationConfiguredFeatures {
                         BlockPredicate.IS_AIR));
 
         public static final ScatteredFeatureConfig EMBER_CHUNK_CONFIG = new ScatteredFeatureConfig.Builder(
-                new WeightedBlockStateProvider(new DataPool.Builder<BlockState>()
+                new WeightedBlockStateProvider(new Pool.Builder<BlockState>()
                         .add(DesolationBlocks.EMBER_BLOCK.getDefaultState(), 1)
                         .add(DesolationBlocks.COOLED_EMBER_BLOCK.getDefaultState(), 1)
                         .build()))

@@ -1,6 +1,7 @@
 package raltsmc.desolation.entity;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -31,8 +32,15 @@ import raltsmc.desolation.registry.DesolationItems;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
+import software.bernie.geckolib.animatable.processing.AnimationTest;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.List;
+import java.util.Optional;
 
 public class BlackenedEntity extends HostileEntity implements GeoEntity {
     private static final TrackedData<Boolean> MELEE_ATTACKING = DataTracker.registerData(BlackenedEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -104,8 +112,7 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
                         targetVector.y, targetVector.z);
                 areaEffectCloudEntity.setDuration(30);
                 areaEffectCloudEntity.setParticleType(ParticleTypes.WHITE_ASH);
-                // TODO: what should this be?
-                //areaEffectCloudEntity.setColor(0xcccccc);
+                areaEffectCloudEntity.setPotionContents(new PotionContentsComponent(Optional.empty(), Optional.of(0xcccccc), List.of(), Optional.empty()));
                 areaEffectCloudEntity.addEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 120, 2));
                 areaEffectCloudEntity.setRadius(0.6F);
                 areaEffectCloudEntity.setRadiusOnUse(0.6F);
@@ -133,35 +140,35 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
         this.dataTracker.set(ASH_ATTACKING, val);
     }
 
-    private <E extends GeoAnimatable> PlayState idlePredicate(AnimationState<E> event) {
+    private <E extends GeoAnimatable> PlayState idlePredicate(AnimationTest<E> event) {
         if (!event.isMoving()) {
-            event.getController().setAnimation(IDLE_ANIM);
+            event.setAnimation(IDLE_ANIM);
             return PlayState.CONTINUE;
         } else {
             return PlayState.STOP;
         }
     }
 
-    private <E extends GeoAnimatable> PlayState walkPredicate(AnimationState<E> event) {
+    private <E extends GeoAnimatable> PlayState walkPredicate(AnimationTest<E> event) {
         if (event.isMoving()) {
-            event.getController().setAnimation(WALK_ANIM);
+            event.setAnimation(WALK_ANIM);
             return PlayState.CONTINUE;
         } else {
             return PlayState.STOP;
         }
     }
 
-    private <E extends GeoAnimatable> PlayState heartPredicate(AnimationState<E> event) {
-        event.getController().setAnimation(HEART_ANIM);
+    private <E extends GeoAnimatable> PlayState heartPredicate(AnimationTest<E> event) {
+        event.setAnimation(HEART_ANIM);
         return PlayState.CONTINUE;
     }
 
-    private <E extends GeoAnimatable> PlayState attackPredicate(AnimationState<E> event) {
+    private <E extends GeoAnimatable> PlayState attackPredicate(AnimationTest<E> event) {
         if (this.isMeleeAttacking()) {
-            event.getController().setAnimation(MELEE_ANIM);
+            event.setAnimation(MELEE_ANIM);
             return PlayState.CONTINUE;
         } else if (this.isAshAttacking()) {
-            event.getController().setAnimation(THROW_ANIM);
+            event.setAnimation(THROW_ANIM);
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -169,10 +176,10 @@ public class BlackenedEntity extends HostileEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "idleController", 0, this::idlePredicate));
-        controllerRegistrar.add(new AnimationController<>(this, "walkController", 0, this::walkPredicate));
-        controllerRegistrar.add(new AnimationController<>(this, "heartController", 0, this::heartPredicate));
-        controllerRegistrar.add(new AnimationController<>(this, "attackController", 0, this::attackPredicate));
+        controllerRegistrar.add(new AnimationController<>("idleController", 0, this::idlePredicate));
+        controllerRegistrar.add(new AnimationController<>("walkController", 0, this::walkPredicate));
+        controllerRegistrar.add(new AnimationController<>("heartController", 0, this::heartPredicate));
+        controllerRegistrar.add(new AnimationController<>("attackController", 0, this::attackPredicate));
     }
 
     @Override

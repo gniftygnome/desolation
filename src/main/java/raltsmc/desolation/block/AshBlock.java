@@ -4,8 +4,10 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 public class AshBlock extends FallingBlock {
@@ -20,7 +22,12 @@ public class AshBlock extends FallingBlock {
     }
 
     @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+    public int getColor(BlockState state, BlockView world, BlockPos pos) {
+        return state.getMapColor(world, pos).color;
+    }
+
+    @Override
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
         entity.slowMovement(state, new Vec3d(0.85D, 0.05000000074505806D, 0.85D));
     }
 }

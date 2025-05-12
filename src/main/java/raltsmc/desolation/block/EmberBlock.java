@@ -104,10 +104,10 @@ public class EmberBlock extends Block {
         double rdY = (random.nextDouble() - 0.5D) / 5.0D;
 
         if (random.nextBoolean()) {
-            world.addParticle(ParticleTypes.LARGE_SMOKE, d + g, e + h, f + i, 0.0D, 0.1D + rdY, 0.0D);
+            world.addParticleClient(ParticleTypes.LARGE_SMOKE, d + g, e + h, f + i, 0.0D, 0.1D + rdY, 0.0D);
         }
         if (random.nextFloat() < 0.3f) {
-            world.addParticle((ParticleEffect) DesolationParticles.SPARK, d + j, e + k, f + l, 0.0D, random.nextDouble() * 0.3D + 0.1D, 0.0D);
+            world.addParticleClient((ParticleEffect) DesolationParticles.SPARK, d + j, e + k, f + l, 0.0D, random.nextDouble() * 0.3D + 0.1D, 0.0D);
             if (random.nextFloat() < 0.05f) {
                 int index = random.nextInt(4);
                 SoundEvent popSound = switch (index) {
@@ -117,7 +117,7 @@ public class EmberBlock extends Block {
                     case 3 -> DesolationSounds.EMBER_BLOCK_POP_4;
                     default -> throw new IllegalStateException("Unexpected value: " + index);
                 };
-                world.playSound(d + j, e + k, f + l, popSound, SoundCategory.BLOCKS, random.nextFloat() * 0.2F + 0.8F, 1.0F, true);
+                world.playSoundClient(d + j, e + k, f + l, popSound, SoundCategory.BLOCKS, random.nextFloat() * 0.2F + 0.8F, 1.0F, true);
             }
         }
     }

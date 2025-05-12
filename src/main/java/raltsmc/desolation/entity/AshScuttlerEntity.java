@@ -3,8 +3,6 @@ package raltsmc.desolation.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -29,7 +27,11 @@ import raltsmc.desolation.registry.DesolationItems;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animatable.processing.AnimationController;
+import software.bernie.geckolib.animatable.processing.AnimationTest;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class AshScuttlerEntity extends AnimalEntity implements GeoEntity {
@@ -108,7 +110,7 @@ public class AshScuttlerEntity extends AnimalEntity implements GeoEntity {
                 return ActionResult.SUCCESS;
             } else {
                 double pVel = random.nextGaussian() * 0.02D;
-                world.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), pVel, pVel, pVel);
+                world.addParticleClient(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), pVel, pVel, pVel);
                 player.playSound(SoundEvents.ITEM_NETHER_WART_PLANT, 1.0F, 1.0F);
                 return ActionResult.CONSUME;
             }
@@ -116,18 +118,18 @@ public class AshScuttlerEntity extends AnimalEntity implements GeoEntity {
         return super.interactMob(player, hand);
     }
 
-    private <E extends GeoAnimatable> PlayState walkPredicate(AnimationState<E> event) {
+    private <E extends GeoAnimatable> PlayState walkPredicate(AnimationTest<E> event) {
         if (event.isMoving()) {
-            event.getController().setAnimation(WALK_ANIM);
+            event.setAnimation(WALK_ANIM);
             return PlayState.CONTINUE;
         } else {
             return PlayState.STOP;
         }
     }
 
-    private <E extends GeoAnimatable> PlayState headPredicate(AnimationState<E> event) {
+    private <E extends GeoAnimatable> PlayState headPredicate(AnimationTest<E> event) {
         if (!event.isMoving()) {
-            event.getController().setAnimation(HEAD_ANIM);
+            event.setAnimation(HEAD_ANIM);
             return PlayState.CONTINUE;
         } else {
             return PlayState.STOP;
@@ -136,8 +138,8 @@ public class AshScuttlerEntity extends AnimalEntity implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "walkController", 0, this::walkPredicate));
-        controllerRegistrar.add(new AnimationController<>(this, "headController", 0, this::headPredicate));
+        controllerRegistrar.add(new AnimationController<>("walkController", 0, this::walkPredicate));
+        controllerRegistrar.add(new AnimationController<>("headController", 0, this::headPredicate));
     }
 
     @Override

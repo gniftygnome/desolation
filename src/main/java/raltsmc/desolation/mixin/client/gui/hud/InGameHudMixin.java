@@ -1,13 +1,14 @@
 package raltsmc.desolation.mixin.client.gui.hud;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -45,21 +46,6 @@ public abstract class InGameHudMixin {
     }
 
     private void desolation$renderGogglesTranslucency(DrawContext context) {
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
-        RenderSystem.depthMask(false);
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 0.36F);
-        //RenderSystem.disableTexture();
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE);
-        bufferBuilder.vertex(0.0F, context.getScaledWindowHeight(), -90.0F).texture(0.0F, 1.0F);
-        bufferBuilder.vertex(context.getScaledWindowWidth(), context.getScaledWindowHeight(), -90.0F).texture(1.0F, 1.0F);
-        bufferBuilder.vertex(context.getScaledWindowWidth(), 0.0F, -90.0F).texture(1.0F, 0.0F);
-        bufferBuilder.vertex(0.0F, 0.0F, -90.0F).texture(0.0F, 0.0F);
-        BufferRenderer.draw(bufferBuilder.end());
-        RenderSystem.depthMask(true);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //RenderSystem.enableTexture();
+        context.fill(RenderLayer.getGuiOverlay(), 0, 0, context.getScaledWindowWidth(), context.getScaledWindowHeight(), -89, ColorHelper.getWhite(0.36F));
     }
 }

@@ -2,8 +2,8 @@ package raltsmc.desolation.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PillarBlock;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class CharredLogBlock extends PillarBlock {
     public CharredLogBlock(Settings settings) {
@@ -11,10 +11,10 @@ public class CharredLogBlock extends PillarBlock {
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        super.onStateReplaced(state, world, pos, newState, moved);
+    public void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        super.onStateReplaced(state, world, pos, moved);
 
-        if (!state.isOf(newState.getBlock())) {
+        if (!state.isOf(world.getBlockState(pos).getBlock())) {
             CharredBranchBlock.notifyLossOfSupport(world, pos);
         }
     }

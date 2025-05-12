@@ -81,8 +81,8 @@ public class BiomeCreator {
     private static SpawnSettings createSpawnSettings() {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
 
-        spawnSettings.spawn(SpawnGroup.AMBIENT, new SpawnSettings.SpawnEntry(DesolationEntities.ASH_SCUTTLER, 1, 1, 2));
-        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(DesolationEntities.BLACKENED, 1, 1, 3));
+        spawnSettings.spawn(SpawnGroup.AMBIENT, 1, new SpawnSettings.SpawnEntry(DesolationEntities.ASH_SCUTTLER, 1, 2));
+        spawnSettings.spawn(SpawnGroup.MONSTER, 1, new SpawnSettings.SpawnEntry(DesolationEntities.BLACKENED, 1, 3));
 
         return spawnSettings.build();
     }

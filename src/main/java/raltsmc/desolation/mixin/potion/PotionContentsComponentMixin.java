@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import raltsmc.desolation.registry.DesolationStatusEffects;
 
 import java.util.function.Consumer;
@@ -16,8 +15,7 @@ import java.util.function.Consumer;
 @Mixin(PotionContentsComponent.class)
 public abstract class PotionContentsComponentMixin {
     @Inject(method = "buildTooltip(Ljava/lang/Iterable;Ljava/util/function/Consumer;FF)V",
-            at = @At("TAIL"),
-            locals = LocalCapture.CAPTURE_FAILHARD
+            at = @At("TAIL")
     )
     private static void desolation$addTooltip(Iterable<StatusEffectInstance> effects, Consumer<Text> textConsumer, float durationMultiplier, float tickRate, CallbackInfo ci) {
         for (StatusEffectInstance effect : effects) {

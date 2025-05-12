@@ -3,18 +3,14 @@ package raltsmc.desolation.mixin.entity.player;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,22 +21,6 @@ import java.util.Optional;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
-    @Shadow
-    @Override
-    public abstract Iterable<ItemStack> getArmorItems();
-
-    @Shadow
-    @Override
-    public abstract ItemStack getEquippedStack(EquipmentSlot slot);
-
-    @Shadow
-    @Override
-    public abstract void equipStack(EquipmentSlot slot, ItemStack stack);
-
-    @Shadow
-    @Override
-    public abstract Arm getMainArm();
-
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
