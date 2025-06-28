@@ -21,17 +21,17 @@ public class DesolationItemTagProvider extends FabricTagProvider.ItemTagProvider
 
 	@Override
 	public void configure(RegistryWrapper.WrapperLookup registries) {
-		getOrCreateTagBuilder(ItemTags.BOATS)
+		valueLookupBuilder(ItemTags.BOATS)
 			.add(DesolationBoats.CHARRED_BOAT);
 
-		getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
+		valueLookupBuilder(ItemTags.CHEST_BOATS)
 			.add(DesolationBoats.CHARRED_CHEST_BOAT);
 
 		copy(BlockTags.LEAVES, ItemTags.LEAVES);
 
 		copy(BlockTags.LOGS, ItemTags.LOGS);
 
-		getOrCreateTagBuilder(ItemTags.NON_FLAMMABLE_WOOD)
+		valueLookupBuilder(ItemTags.NON_FLAMMABLE_WOOD)
 			.addTag(DesolationItemTags.CHARRED_LOGS)
 			.add(DesolationBlocks.CHARRED_BUTTON.asItem())
 			.add(DesolationBlocks.CHARRED_DOOR.asItem())

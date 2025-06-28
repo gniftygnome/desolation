@@ -22,7 +22,7 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 		/*
 		 * Vanilla biome categories
 		 */
-		getOrCreateTagBuilder(BiomeTags.IS_FOREST)
+		builder(BiomeTags.IS_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
@@ -30,12 +30,12 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 		/*
 		 * Conventional biome categories
 		 */
-		getOrCreateTagBuilder(ConventionalBiomeTags.IS_TEMPERATE_OVERWORLD)
+		builder(ConventionalBiomeTags.IS_TEMPERATE_OVERWORLD)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(ConventionalBiomeTags.IS_OVERWORLD)
+		builder(ConventionalBiomeTags.IS_OVERWORLD)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
@@ -44,27 +44,27 @@ public class DesolationBiomeTagProvider extends FabricTagProvider<Biome> {
 		/*
 		 * Biome structure generation tags
 		 */
-		getOrCreateTagBuilder(BiomeTags.MINESHAFT_HAS_STRUCTURE)
+		builder(BiomeTags.MINESHAFT_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(BiomeTags.RUINED_PORTAL_STANDARD_HAS_STRUCTURE)
+		builder(BiomeTags.RUINED_PORTAL_STANDARD_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(BiomeTags.STRONGHOLD_HAS_STRUCTURE)
+		builder(BiomeTags.STRONGHOLD_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(BiomeTags.TRIAL_CHAMBERS_HAS_STRUCTURE)
+		builder(BiomeTags.TRIAL_CHAMBERS_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);
 
-		getOrCreateTagBuilder(DesolationBiomeTags.ASH_TINKER_BASE_HAS_STRUCTURE)
+		builder(DesolationBiomeTags.ASH_TINKER_BASE_HAS_STRUCTURE)
 			.addOptional(DesolationBiomes.CHARRED_FOREST)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_CLEARING)
 			.addOptional(DesolationBiomes.CHARRED_FOREST_SMALL);

@@ -73,7 +73,7 @@ public class AshAttackGoal extends Goal {
                 return false;
             } else if (!this.pauseWhenMobIdle) {
                 return !this.mob.getNavigation().isIdle();
-            } else if (!this.mob.isInWalkTargetRange(livingEntity.getBlockPos())) {
+            } else if (!this.mob.isInPositionTargetRange(livingEntity.getBlockPos())) {
                 return false;
             } else {
                 return !(livingEntity instanceof PlayerEntity) || !livingEntity.isSpectator() && !((PlayerEntity) livingEntity).isCreative();

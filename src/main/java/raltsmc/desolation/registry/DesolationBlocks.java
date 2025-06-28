@@ -1,15 +1,9 @@
 package raltsmc.desolation.registry;
 
-import com.terraformersmc.terraform.sign.api.block.TerraformHangingSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformWallHangingSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformWallSignBlock;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
-import raltsmc.desolation.Desolation;
 import raltsmc.desolation.block.*;
 import raltsmc.desolation.world.feature.DesolationConfiguredFeatures;
 
@@ -34,10 +28,10 @@ public final class DesolationBlocks {
     public static Block POTTED_CHARRED_SAPLING;
     public static Block CINDERFRUIT_PLANT;
 
-	public static TerraformSignBlock CHARRED_SIGN;
-	public static TerraformWallSignBlock CHARRED_WALL_SIGN;
-	public static TerraformHangingSignBlock CHARRED_HANGING_SIGN;
-	public static TerraformWallHangingSignBlock CHARRED_WALL_HANGING_SIGN;
+	public static SignBlock CHARRED_SIGN;
+	public static WallSignBlock CHARRED_WALL_SIGN;
+	public static HangingSignBlock CHARRED_HANGING_SIGN;
+	public static WallHangingSignBlock CHARRED_WALL_HANGING_SIGN;
 
     public static Block CHARRED_SLAB;
     public static Block CHARRED_STAIRS;
@@ -72,22 +66,19 @@ public final class DesolationBlocks {
         POTTED_CHARRED_SAPLING = DesolationRegistries.register("potted_charred_sapling", settings -> new FlowerPotBlock(CHARRED_SAPLING, settings), AbstractBlock.Settings.copy(Blocks.OAK_SAPLING).mapColor(MapColor.GRAY));
         CINDERFRUIT_PLANT = DesolationRegistries.register("cinderfruit_plant", CinderfruitPlantBlock::new, AbstractBlock.Settings.copy(Blocks.SWEET_BERRY_BUSH).mapColor(MapColor.TERRACOTTA_GRAY).strength(0.1f).luminance(state -> 10).sounds(BlockSoundGroup.CROP));
 
-        final Identifier CHARRED_SIGN_TEXTURE = Identifier.of(Desolation.MOD_ID, "entity/signs/charred");
-        CHARRED_SIGN = DesolationRegistries.register("charred_sign", settings -> new TerraformSignBlock(CHARRED_SIGN_TEXTURE, settings), AbstractBlock.Settings.copy(Blocks.OAK_SIGN));
-        CHARRED_WALL_SIGN = DesolationRegistries.register("charred_wall_sign", settings -> new TerraformWallSignBlock(CHARRED_SIGN_TEXTURE, settings), AbstractBlock.Settings.copy(Blocks.OAK_WALL_SIGN).lootTable(CHARRED_SIGN.getLootTableKey()));
-        final Identifier CHARRED_HANGING_SIGN_TEXTURE = Identifier.of(Desolation.MOD_ID, "entity/signs/hanging/charred");
-        final Identifier CHARRED_HANGING_SIGN_GUI_TEXTURE = Identifier.of(Desolation.MOD_ID, "textures/gui/hanging_signs/charred");
-        CHARRED_HANGING_SIGN = DesolationRegistries.register("charred_hanging_sign", settings -> new TerraformHangingSignBlock(CHARRED_HANGING_SIGN_TEXTURE, CHARRED_HANGING_SIGN_GUI_TEXTURE, settings), AbstractBlock.Settings.copy(Blocks.OAK_HANGING_SIGN));
-        CHARRED_WALL_HANGING_SIGN = DesolationRegistries.register("charred_wall_hanging_sign", settings -> new TerraformWallHangingSignBlock(CHARRED_HANGING_SIGN_TEXTURE, CHARRED_HANGING_SIGN_GUI_TEXTURE, settings), AbstractBlock.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN).lootTable(CHARRED_HANGING_SIGN.getLootTableKey()));
+        CHARRED_SIGN = DesolationRegistries.registerSignBlock("charred_sign", settings -> new SignBlock(DesolationWoodTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_SIGN));
+        CHARRED_WALL_SIGN = DesolationRegistries.registerSignBlock("charred_wall_sign", settings -> new WallSignBlock(DesolationWoodTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_WALL_SIGN).lootTable(CHARRED_SIGN.getLootTableKey()));
+        CHARRED_HANGING_SIGN = DesolationRegistries.registerSignBlock("charred_hanging_sign", settings -> new HangingSignBlock(DesolationWoodTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_HANGING_SIGN));
+        CHARRED_WALL_HANGING_SIGN = DesolationRegistries.registerSignBlock("charred_wall_hanging_sign", settings -> new WallHangingSignBlock(DesolationWoodTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_WALL_HANGING_SIGN).lootTable(CHARRED_HANGING_SIGN.getLootTableKey()));
 
         CHARRED_SLAB = DesolationRegistries.register("charred_slab", SlabBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_SLAB).mapColor(MapColor.GRAY));
         CHARRED_STAIRS = DesolationRegistries.register("charred_stairs", settings -> new StairsBlock(CHARRED_PLANKS.getDefaultState(), settings), AbstractBlock.Settings.copy(CHARRED_PLANKS));
-        CHARRED_PRESSURE_PLATE = DesolationRegistries.register("charred_pressure_plate", settings -> new PressurePlateBlock(DesolationBlockSets.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.GRAY));
-        CHARRED_TRAPDOOR = DesolationRegistries.register("charred_trapdoor", settings -> new TrapdoorBlock(DesolationBlockSets.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).mapColor(MapColor.GRAY).strength(3.0f).allowsSpawning((state, world, pos, entityType) -> false));
+        CHARRED_PRESSURE_PLATE = DesolationRegistries.register("charred_pressure_plate", settings -> new PressurePlateBlock(DesolationBlockSetTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_PRESSURE_PLATE).mapColor(MapColor.GRAY));
+        CHARRED_TRAPDOOR = DesolationRegistries.register("charred_trapdoor", settings -> new TrapdoorBlock(DesolationBlockSetTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_TRAPDOOR).mapColor(MapColor.GRAY).strength(3.0f).allowsSpawning((state, world, pos, entityType) -> false));
         CHARRED_FENCE = DesolationRegistries.register("charred_fence", FenceBlock::new, AbstractBlock.Settings.copy(Blocks.OAK_FENCE).mapColor(MapColor.GRAY));
-        CHARRED_FENCE_GATE = DesolationRegistries.register("charred_fence_gate", settings -> new FenceGateBlock(WoodType.OAK, settings), AbstractBlock.Settings.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.GRAY));
-        CHARRED_BUTTON = DesolationRegistries.register("charred_button", settings -> new ButtonBlock(DesolationBlockSets.CHARRED, 30, settings), AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(MapColor.GRAY));
-        CHARRED_DOOR = DesolationRegistries.register("charred_door", settings -> new DoorBlock(DesolationBlockSets.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_DOOR).mapColor(MapColor.GRAY));
+        CHARRED_FENCE_GATE = DesolationRegistries.register("charred_fence_gate", settings -> new FenceGateBlock(DesolationWoodTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_FENCE_GATE).mapColor(MapColor.GRAY));
+        CHARRED_BUTTON = DesolationRegistries.register("charred_button", settings -> new ButtonBlock(DesolationBlockSetTypes.CHARRED, 30, settings), AbstractBlock.Settings.copy(Blocks.OAK_BUTTON).mapColor(MapColor.GRAY));
+        CHARRED_DOOR = DesolationRegistries.register("charred_door", settings -> new DoorBlock(DesolationBlockSetTypes.CHARRED, settings), AbstractBlock.Settings.copy(Blocks.OAK_DOOR).mapColor(MapColor.GRAY));
 
         addFlammables();
         addStrippables();

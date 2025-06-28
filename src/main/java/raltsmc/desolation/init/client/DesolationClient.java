@@ -4,14 +4,14 @@ import com.terraformersmc.terraform.boat.api.client.TerraformBoatClientHelper;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.resource.ResourceType;
@@ -36,14 +36,11 @@ public class DesolationClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.CHARRED_BRANCHES, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.ASH_BRAMBLE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.CHARRED_SAPLING, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.POTTED_CHARRED_SAPLING, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.SCORCHED_TUFT, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.CINDERFRUIT_PLANT, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.CHARRED_TRAPDOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(DesolationBlocks.CHARRED_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.putBlocks(BlockRenderLayer.TRANSLUCENT, DesolationBlocks.CHARRED_BRANCHES);
+        BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, DesolationBlocks.ASH_BRAMBLE);
+        BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, DesolationBlocks.CHARRED_SAPLING, DesolationBlocks.POTTED_CHARRED_SAPLING);
+        BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, DesolationBlocks.CINDERFRUIT_PLANT, DesolationBlocks.SCORCHED_TUFT);
+        BlockRenderLayerMap.putBlocks(BlockRenderLayer.CUTOUT, DesolationBlocks.CHARRED_DOOR, DesolationBlocks.CHARRED_TRAPDOOR);
 
         EntityRendererRegistry.register(DesolationEntities.ASH_SCUTTLER, AshScuttlerEntityRenderer::new);
         EntityRendererRegistry.register(DesolationEntities.BLACKENED, BlackenedEntityRenderer::new);

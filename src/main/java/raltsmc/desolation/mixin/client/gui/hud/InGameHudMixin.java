@@ -5,7 +5,6 @@ import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
@@ -45,7 +44,8 @@ public abstract class InGameHudMixin {
         }
     }
 
+    @Unique
     private void desolation$renderGogglesTranslucency(DrawContext context) {
-        context.fill(RenderLayer.getGuiOverlay(), 0, 0, context.getScaledWindowWidth(), context.getScaledWindowHeight(), -89, ColorHelper.getWhite(0.36F));
+        context.fillGradient(0, 0, context.getScaledWindowWidth(), context.getScaledWindowHeight(), -89, ColorHelper.getWhite(0.36F));
     }
 }

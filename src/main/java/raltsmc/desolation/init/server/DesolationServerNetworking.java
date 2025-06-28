@@ -23,9 +23,9 @@ public class DesolationServerNetworking {
     public static void init() {
         PayloadTypeRegistry.playC2S().register(CinderSoulC2SPacket.ID, CinderSoulC2SPacket.CODEC);
 
-        ServerPlayNetworking.registerGlobalReceiver(CinderSoulC2SPacket.ID, (payload, context) -> context.player().server.execute(() -> {
+        ServerPlayNetworking.registerGlobalReceiver(CinderSoulC2SPacket.ID, (payload, context) -> context.server().execute(() -> {
             ServerPlayerEntity player = context.player();
-            ServerWorld world = (ServerWorld) player.getWorld();
+            ServerWorld world = player.getWorld();
             Random random = ThreadLocalRandom.current();
 
             switch (payload.type()) {
