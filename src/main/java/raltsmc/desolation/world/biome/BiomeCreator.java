@@ -56,6 +56,7 @@ public class BiomeCreator {
         DefaultBiomeFeatures.addDefaultOres(generationSettings);
         DefaultBiomeFeatures.addDefaultDisks(generationSettings);
         DefaultBiomeFeatures.addSprings(generationSettings);
+        generationSettings.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS, placedFeatures.getOrThrow(DesolationPlacedFeatures.GIANT_BOULDER));
         if (isSmall) {
             if (!isClearing) {
                 generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.TREES_CHARRED_SMALL));
@@ -68,12 +69,11 @@ public class BiomeCreator {
             generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_CHARRED_SAPLING));
             generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.TREES_CHARRED_FALLEN_LARGE));
         }
-        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_ASH_LAYER));
-        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_EMBER_CHUNK));
-        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.GIANT_BOULDER));
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_SCORCHED_TUFT));
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_ASH_BRAMBLE));
         generationSettings.feature(GenerationStep.Feature.VEGETAL_DECORATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PLANT_CINDERFRUIT));
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_ASH_LAYER));
+        generationSettings.feature(GenerationStep.Feature.TOP_LAYER_MODIFICATION, placedFeatures.getOrThrow(DesolationPlacedFeatures.PATCH_EMBER_CHUNK));
 
         return generationSettings.build();
     }
